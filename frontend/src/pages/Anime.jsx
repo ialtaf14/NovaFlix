@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import SeriesAnimeCard from '../components/SeriesAnimeCard';
+import SkeletonCard from '../components/SkeletonCard';
 import { useCachedResource } from '../hooks/useCachedResource';
 import { useCachedState } from '../hooks/useCachedState';
 import './Anime.css';
@@ -73,7 +74,11 @@ const Anime = () => {
       </div>
 
       {loading ? (
-        <div className="loading-spinner">Loading Anime...</div>
+        <div className="anime-grid">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
       ) : (
         <>
           <div className="anime-grid">

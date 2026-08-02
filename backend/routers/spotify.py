@@ -3,7 +3,8 @@ from typing import Optional
 import os
 import time
 import httpx
-from core.deps import get_current_user
+from core.config import settings
+from core.deps import get_optional_current_user
 
 router = APIRouter(prefix="/api/spotify", tags=["spotify"])
 
@@ -18,13 +19,13 @@ async def get_spotify_token() -> str:
     if SPOTIFY_TOKEN and time.time() < TOKEN_EXPIRES_AT - 60:
         return SPOTIFY_TOKEN
         
-    client_id = os.environ.get("SPOTIFY_CLIENT_ID")
-    client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
+    client_id = settings.SPOTIFY_CLIENT_ID or os.environ.get("SPOTIFY_CLIENT_ID", "")
+    client_secret = settings.SPOTIFY_CLIENT_SECRET or os.environ.get("SPOTIFY_CLIENT_SECRET", "")
     
-    if not client_id or not client_secret or client_secret == "paste_your_secret_here":
+    if not client_id or not client_secret:
         raise HTTPException(
             status_code=500, 
-            detail="Spotify Client ID or Secret is not configured. Please add them to the backend .env file."
+            detail="Spotify Client ID or Secret is not configured."
         )
 
     # Use Client Credentials flow
@@ -47,7 +48,7 @@ async def get_spotify_token() -> str:
     return SPOTIFY_TOKEN
 
 @router.get("/search")
-async def search_spotify(q: str, type: str = "track", limit: int = 20, current_user: dict = Depends(get_current_user)):
+async def search_spotify(q: str, type: str = "track", limit: int = 20, current_user: Optional[dict] = Depends(get_optional_current_user)):
     """Search for tracks or artists on Spotify"""
     if not q:
         return {"tracks": {"items": []}}
@@ -67,7 +68,7 @@ async def search_spotify(q: str, type: str = "track", limit: int = 20, current_u
         return response.json()
 
 @router.get("/trending")
-async def get_trending(current_user: dict = Depends(get_current_user)):
+async def get_trending(current_user: Optional[dict] = Depends(get_optional_current_user)):
     """Fetch new releases/trending tracks for the picker"""
     token = await get_spotify_token()
     
@@ -85,7 +86,7 @@ async def get_trending(current_user: dict = Depends(get_current_user)):
         return response.json()
 
 @router.get("/recommendations")
-async def get_recommendations(seed_genres: str = "movies", current_user: dict = Depends(get_current_user)):
+async def get_recommendations(seed_genres: str = "movies", current_user: Optional[dict] = Depends(get_optional_current_user)):
     """Get recommendations based on genre (e.g. movies, anime)"""
     token = await get_spotify_token()
     

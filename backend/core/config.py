@@ -27,16 +27,16 @@ class Settings(BaseSettings):
     USERS_FILE: str = os.path.join(DATA_DIR, "users.json")
 
     # Spotify API
-    SPOTIFY_CLIENT_ID: str = ""
+    SPOTIFY_CLIENT_ID: str = "ee734bc59f2640b6880adfde4c7ecd2c"
     SPOTIFY_CLIENT_SECRET: str = ""
 
     # Google OAuth
-    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_ID: str = "509179961648-ubmi30rhltdsb2dmvnuo33mpl9ha4j59.apps.googleusercontent.com"
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/google/callback"
 
     # Facebook OAuth
-    FACEBOOK_APP_ID: str = ""
+    FACEBOOK_APP_ID: str = "1532835728310451"
     FACEBOOK_APP_SECRET: str = ""
     FACEBOOK_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/facebook/callback"
 
