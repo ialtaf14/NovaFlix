@@ -127,14 +127,24 @@ export default function RecommendSidebar({ isOpen, onClose }) {
       })
   }
 
+  const getBestMatch = (query) => {
+    if (!query.trim()) return null
+    const q = query.toLowerCase().trim()
+    const exact = allTitles.find(t => t.toLowerCase() === q)
+    if (exact) return exact
+    const startsWith = allTitles.find(t => t.toLowerCase().startsWith(q))
+    if (startsWith) return startsWith
+    const includes = allTitles.find(t => t.toLowerCase().includes(q))
+    if (includes) return includes
+    return null
+  }
+
   // Keyboard navigation for suggestions
   const handleKeyDown = (e) => {
-    if (!showSuggestions || suggestions.length === 0) return
-
-    if (e.key === 'ArrowDown') {
+    if (e.key === 'ArrowDown' && suggestions.length > 0) {
       e.preventDefault()
       setActiveSuggestionIdx(prev => (prev + 1 < suggestions.length ? prev + 1 : 0))
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' && suggestions.length > 0) {
       e.preventDefault()
       setActiveSuggestionIdx(prev => (prev - 1 >= 0 ? prev - 1 : suggestions.length - 1))
     } else if (e.key === 'Enter') {
@@ -144,13 +154,10 @@ export default function RecommendSidebar({ isOpen, onClose }) {
         setSearchQuery(selected)
         fetchRecommendations(selected)
       } else {
-        // Find exact match (case insensitive) if no suggestion is active
-        const match = allTitles.find(t => t.toLowerCase() === searchQuery.toLowerCase().trim())
-        if (match) {
-          setSearchQuery(match)
-          fetchRecommendations(match)
-        } else {
-          setError('Movie not found. Please select from the suggestions list.')
+        const matched = getBestMatch(searchQuery) || searchQuery.trim()
+        if (matched) {
+          setSearchQuery(matched)
+          fetchRecommendations(matched)
         }
       }
     } else if (e.key === 'Escape') {
@@ -167,12 +174,10 @@ export default function RecommendSidebar({ isOpen, onClose }) {
     e.preventDefault()
     if (!searchQuery.trim()) return
 
-    const match = allTitles.find(t => t.toLowerCase() === searchQuery.toLowerCase().trim())
-    if (match) {
-      setSearchQuery(match)
-      fetchRecommendations(match)
-    } else {
-      setError('Movie not found. Please select from the suggestions list.')
+    const matched = getBestMatch(searchQuery) || searchQuery.trim()
+    if (matched) {
+      setSearchQuery(matched)
+      fetchRecommendations(matched)
     }
   }
 

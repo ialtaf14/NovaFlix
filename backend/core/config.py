@@ -28,7 +28,7 @@ class Settings(BaseSettings):
 
     # Spotify API
     SPOTIFY_CLIENT_ID: str = "ee734bc59f2640b6880adfde4c7ecd2c"
-    SPOTIFY_CLIENT_SECRET: str = ""
+    SPOTIFY_CLIENT_SECRET: str = "62194096055b4d708b2240fb294e2ad6"
 
     # Google OAuth
     GOOGLE_CLIENT_ID: str = "509179961648-ubmi30rhltdsb2dmvnuo33mpl9ha4j59.apps.googleusercontent.com"
@@ -37,7 +37,7 @@ class Settings(BaseSettings):
 
     # Facebook OAuth
     FACEBOOK_APP_ID: str = "1532835728310451"
-    FACEBOOK_APP_SECRET: str = ""
+    FACEBOOK_APP_SECRET: str = "61a87635b0c172391b612a6407e63782"
     FACEBOOK_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/facebook/callback"
 
 
