@@ -57,12 +57,8 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # ── Auto-download ML data files if missing ───────────────────────────────────
 import urllib.request
 
-# Hugging Face dataset repo URL (public)
-# After uploading pkl files to HuggingFace, update this base URL
-HF_BASE_URL = os.environ.get(
-    "HF_DATA_URL",
-    "https://huggingface.co/datasets/ialtaf14/novaflix-data/resolve/main"
-)
+# GitHub Releases direct download URLs for ML pkl data files
+GH_RELEASE_BASE = "https://github.com/ialtaf14/Novaflix/releases/download/v2.0-data"
 
 PKL_FILES = [
     "movies_dict.pkl",
@@ -73,7 +69,7 @@ PKL_FILES = [
 ]
 
 def download_data_files():
-    """Download missing ML pkl data files from Hugging Face on startup."""
+    """Download missing ML pkl data files from GitHub Releases on startup."""
     try:
         from core.config import get_settings
         files_dir = get_settings().FILES_DIR
@@ -89,8 +85,8 @@ def download_data_files():
         if os.path.exists(dest):
             print(f"[Data] ✓ {filename} already exists, skipping download.")
             continue
-        url = f"{HF_BASE_URL}/{filename}"
-        print(f"[Data] Downloading {filename} from {url} ...")
+        url = f"{GH_RELEASE_BASE}/{filename}"
+        print(f"[Data] Downloading {filename} from GitHub Releases ...")
         try:
             urllib.request.urlretrieve(url, dest)
             size_mb = os.path.getsize(dest) / (1024 * 1024)
