@@ -5,6 +5,8 @@ import { useCachedResource } from "../hooks/useCachedResource";
 import { useCachedState } from "../hooks/useCachedState";
 import "./Series.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
 function Series() {
   const [page, setPage] = useCachedState("series:page", 1);
   const [letterFilter, setLetterFilter] = useCachedState("series:letter", "All");
@@ -17,7 +19,7 @@ function Series() {
   const { data, loading } = useCachedResource(
     `series:browse:${page}:${letterFilter}:${genreFilter}`,
     () =>
-      fetch(`/api/series/browse?page=${page}&letter=${letterFilter}&genre=${genreFilter}`)
+      fetch(`${API_BASE_URL}/series/browse?page=${page}&letter=${letterFilter}&genre=${genreFilter}`)
         .then((res) => res.json())
         .then((d) => ({ series: d.series || [], total_pages: d.total_pages || 1 }))
   );

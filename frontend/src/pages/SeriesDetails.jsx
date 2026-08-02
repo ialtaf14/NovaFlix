@@ -4,6 +4,8 @@ import SkeletonCard from "../components/SkeletonCard";
 import SeasonEpisodeViewer from "../components/SeasonEpisodeViewer";
 import "./SeriesDetails.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
 function SeriesDetails() {
   const { title } = useParams();
   const [details, setDetails] = useState(null);
@@ -12,14 +14,14 @@ function SeriesDetails() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`/api/series/details?title=${encodeURIComponent(title)}`)
+    fetch(`${API_BASE_URL}/series/details?title=${encodeURIComponent(title)}`)
       .then(res => res.json())
       .then(data => {
         setDetails(data);
         setLoading(false);
         
         // Fetch trailer
-        fetch(`/api/movies/trailer?title=${encodeURIComponent(title + " series")}`)
+        fetch(`${API_BASE_URL}/movies/trailer?title=${encodeURIComponent(title + " series")}`)
           .then(res => res.json())
           .then(td => setTrailerId(td.video_id))
           .catch(e => console.error("Trailer err", e));

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './SeasonEpisodeViewer.css'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+
 export default function SeasonEpisodeViewer({ title, totalSeasons, totalEpisodes, type = 'series' }) {
   const [seasons, setSeasons] = useState([])
   const [selectedSeason, setSelectedSeason] = useState(1)
@@ -27,7 +29,7 @@ export default function SeasonEpisodeViewer({ title, totalSeasons, totalEpisodes
         ? `/anime/episodes?title=${encodeURIComponent(title)}&season=${selectedSeason}`
         : `/series/episodes?title=${encodeURIComponent(title)}&season=${selectedSeason}`
       
-      const res = await fetch(`/api${endpoint}`)
+      const res = await fetch(`${API_BASE_URL}${endpoint}`)
       const data = await res.json()
       setEpisodes(data.episodes || [])
     } catch (err) {

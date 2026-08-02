@@ -285,8 +285,10 @@ def get_personalized(current_user: dict = Depends(get_current_user)):
         "watch_history": watch_history
     }
 
+from core.deps import get_current_user, get_optional_current_user
+
 @router.get("/recommended-page")
-def get_recommended_page(current_user: dict = Depends(get_current_user)):
+def get_recommended_page(current_user: dict = Depends(get_optional_current_user)):
     uname = current_user["username"]
     collections = preprocess.generate_collections(uname)
     return {"collections": collections}

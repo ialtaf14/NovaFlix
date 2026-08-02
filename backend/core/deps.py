@@ -42,3 +42,19 @@ def get_current_user(
     session_manager.update_session_activity(session_id)
 
     return {"username": username, "data": users[username], "session_id": session_id}
+
+
+bearer_scheme_optional = HTTPBearer(auto_error=False)
+
+
+def get_optional_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme_optional),
+) -> dict:
+    if not credentials:
+        return {"username": "guest"}
+    token = credentials.credentials
+    payload = decode_access_token(token)
+    if not payload:
+        return {"username": "guest"}
+    username = payload.get("sub", "guest")
+    return {"username": username}
