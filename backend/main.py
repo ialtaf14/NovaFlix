@@ -101,11 +101,13 @@ def download_data_files():
 
 
 # ── Startup event: Clean up old sessions ──────────────────────────────────────
+import threading
+
 @app.on_event("startup")
 def startup_event():
-    """Download missing data files and clean up old sessions on startup."""
-    # Download pkl files if not present (e.g. on Render/cloud deployment)
-    download_data_files()
+    """Download missing data files in background and clean up old sessions on startup."""
+    # Download pkl files in background thread so uvicorn binds to PORT instantly
+    threading.Thread(target=download_data_files, daemon=True).start()
 
     deleted_count = session_manager.cleanup_old_sessions(
         max_age_seconds=7776000

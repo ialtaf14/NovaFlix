@@ -108,6 +108,8 @@ def _get_deleted_movies() -> set:
 @lru_cache(maxsize=128)
 def load_movies_df():
     path = os.path.join(FILES_DIR, "movies_dict.pkl")
+    if not os.path.exists(path):
+        return pd.DataFrame()
     with open(path, "rb") as f:
         df = pd.DataFrame.from_dict(pickle.load(f))
     deleted = _get_deleted_movies()
@@ -119,6 +121,8 @@ def load_movies_df():
 @lru_cache(maxsize=1)
 def load_movies2_df():
     path = os.path.join(FILES_DIR, "movies2_dict.pkl")
+    if not os.path.exists(path):
+        return pd.DataFrame()
     with open(path, "rb") as f:
         df = pd.DataFrame.from_dict(pickle.load(f))
     deleted = _get_deleted_movies()
@@ -130,6 +134,8 @@ def load_movies2_df():
 @lru_cache(maxsize=1)
 def load_new_df():
     path = os.path.join(FILES_DIR, "new_df_dict.pkl")
+    if not os.path.exists(path):
+        return pd.DataFrame()
     with open(path, "rb") as f:
         return pd.DataFrame.from_dict(pickle.load(f))
 
