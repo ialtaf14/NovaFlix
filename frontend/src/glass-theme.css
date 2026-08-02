@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════════
+   NovaFlix — Premium Glassmorphism Theme Layer
+   Loaded after index.css; unifies every page under one glass look.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Core glass recipe (shared) ─────────────────────────────── */
+.login-box,
+.messages-layout-box,
+.notif-list-container,
+.ai-chat-container,
+.collection-card, .col-modal,
+.creator-card,
+.season-episode-viewer,
+.sev-episode-item,
+.anime-main-info, .series-main-info,
+.watch-party-panel, .party-room-card,
+.search-filters-panel, .filters-container,
+.story-editor-panel,
+.onboarding-modal,
+.recommend-sidebar,
+.profile-panel,
+.stories-bar,
+.conversation-item,
+.notif-item,
+.history-item,
+.ai-movie-sugg-card,
+.chat-movie-share-card {
+  position: relative;
+  background: linear-gradient(148deg, rgba(255,255,255,0.075), rgba(255,255,255,0.022) 55%, rgba(255,255,255,0.045)) !important;
+  backdrop-filter: blur(24px) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(145%) !important;
+  border: 1px solid rgba(255,255,255,0.11) !important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    inset 0 -1px 0 rgba(0,0,0,0.14) !important;
+  border-radius: 18px !important;
+}
+
+/* Hover lift for interactive glass items */
+.collection-card, .creator-card, .conversation-item,
+.notif-item, .history-item, .ai-movie-sugg-card, .sev-episode-item {
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.3s cubic-bezier(0.16,1,0.3,1),
+              border-color 0.3s ease;
+}
+.collection-card:hover, .creator-card:hover,
+.conversation-item:hover, .notif-item:hover,
+.history-item:hover, .ai-movie-sugg-card:hover, .sev-episode-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.22) !important;
+  box-shadow:
+    0 16px 42px rgba(0,0,0,0.42),
+    0 0 22px rgba(255,75,43,0.14),
+    inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+/* ── Heavy glass: overlays & modals ─────────────────────────── */
+.chat-modal-overlay, .insta-modal-overlay, .col-modal-overlay {
+  background: rgba(6,6,12,0.55) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+}
+.insta-modal {
+  background: linear-gradient(155deg, rgba(30,30,44,0.85), rgba(14,14,22,0.9)) !important;
+  backdrop-filter: blur(30px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(150%) !important;
+  border: 1px solid rgba(255,255,255,0.13) !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+
+/* ── Chips, pills, tags ─────────────────────────────────────── */
+.tag, .meta-tags .tag, .imdb-pill, .collection-badge-count,
+.col-movie-pill, .added-movie-tag, .creator-type-badge {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* ── Season / Episode viewer polish ─────────────────────────── */
+.sev-season-btn {
+  background: rgba(255,255,255,0.06) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1) !important;
+}
+.sev-season-btn:hover {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,75,43,0.45) !important;
+  transform: translateY(-2px);
+}
+.sev-season-btn.active {
+  background: linear-gradient(135deg, var(--red), var(--red-2)) !important;
+  border-color: rgba(255,255,255,0.25) !important;
+  box-shadow: 0 6px 20px rgba(255,75,43,0.45), inset 0 1px 0 rgba(255,255,255,0.25) !important;
+}
+
+/* ── Scrollbars (global, subtle glass) ──────────────────────── */
+*::-webkit-scrollbar { width: 8px; height: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255,75,43,0.55), rgba(139,43,226,0.55));
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(255,75,43,0.8), rgba(139,43,226,0.8));
+}
+
+/* ── Focus ring accessibility ───────────────────────────────── */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(255,75,43,0.6);
+  outline-offset: 2px;
+}
+
+/* ── Reduced motion respect ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

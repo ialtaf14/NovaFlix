@@ -1,0 +1,71 @@
+/* Attachment menu — glass popover */
+.attachment-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(6, 6, 12, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.attachment-menu {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  z-index: 901;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(255,255,255,0.09), rgba(18,18,28,0.75) 55%);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+.animate-fade-in-up {
+  animation: attachFadeUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes attachFadeUp {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.attachment-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 12px;
+  transition: background 0.2s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1);
+}
+.attachment-item:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.attachment-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--red, #ff4b2b), var(--red-2, #ff416c));
+  box-shadow: 0 6px 18px rgba(255,75,43,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.attachment-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}

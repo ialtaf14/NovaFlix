@@ -1,0 +1,59 @@
+# Node / Frontend Dependencies & Build Output
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+build/
+frontend/build/
+.output/
+.vite/
+
+# All ML Pickle Files (generated at runtime, too large for GitHub)
+backend/Files/*.pkl
+backend/Files/backup_original/
+
+# Python / Backend Environments & Cache
+__pycache__/
+backend/__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+backend/.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+
+# Environment Variables & Secrets (Keep private!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+frontend/.env
+
+# IDE & Editor Specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Deployment Cache
+.vercel
+.netlify
+
+backend/Files/similarity_*.pkl

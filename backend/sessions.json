@@ -1,0 +1,24 @@
+{
+    "f4052585-708c-42a4-838b-a02a9a485ab9": {
+        "session_id": "f4052585-708c-42a4-838b-a02a9a485ab9",
+        "username": "altafkhan122105",
+        "device": "Browser",
+        "browser": "Mozilla/5.0 (Windows",
+        "os": "Unknown",
+        "location": "Unknown (OAuth)",
+        "ip_address": "127.0.0.1",
+        "last_active": 1785653975.1629093,
+        "created_at": 1785653956.704416
+    },
+    "129783ae-ab27-426f-9234-46c579463740": {
+        "session_id": "129783ae-ab27-426f-9234-46c579463740",
+        "username": "altafkhan122105",
+        "device": "Browser",
+        "browser": "Mozilla/5.0 (Windows",
+        "os": "Unknown",
+        "location": "Unknown (OAuth)",
+        "ip_address": "127.0.0.1",
+        "last_active": 1785654040.749091,
+        "created_at": 1785654008.0911412
+    }
+}}

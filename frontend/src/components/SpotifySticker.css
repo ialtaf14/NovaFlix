@@ -1,0 +1,90 @@
+.spotify-sticker {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  font-family: 'Inter', sans-serif;
+  color: #121212;
+  width: 280px;
+  max-width: 100%;
+}
+
+.ss-album-art {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.ss-album-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ss-equalizer {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.bar {
+  width: 3px;
+  background: white;
+  border-radius: 3px;
+  animation: bounce 1.2s ease-in-out infinite;
+}
+
+.bar1 { height: 40%; animation-delay: 0s; }
+.bar2 { height: 80%; animation-delay: 0.15s; }
+.bar3 { height: 60%; animation-delay: 0.3s; }
+.bar4 { height: 100%; animation-delay: 0.45s; }
+
+@keyframes bounce {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.ss-info {
+  flex: 1;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.ss-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.ss-artist {
+  font-size: 0.75rem;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ss-logo {
+  width: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.ss-logo img {
+  width: 100%;
+  filter: brightness(0); /* Make it black since background is white */
+}

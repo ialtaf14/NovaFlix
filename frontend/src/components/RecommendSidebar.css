@@ -1,0 +1,452 @@
+/* ── Recommend Sidebar Container ── */
+.recommend-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  z-index: 1090;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.recommend-sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.recommend-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 450px;
+  max-width: 100vw;
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.recommend-sidebar.open {
+  transform: translateX(0);
+}
+
+/* ── Header ── */
+.recommend-sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recommend-sidebar-header h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommend-sidebar-header h2 span {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.recommend-close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.recommend-close-btn:hover {
+  color: #ff4b2b;
+  background: rgba(255, 255, 255, 0.05);
+  transform: rotate(90deg);
+}
+
+/* ── Body & Content ── */
+.recommend-sidebar-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 75, 43, 0.3) transparent;
+}
+
+.recommend-sidebar-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recommend-sidebar-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 43, 0.3);
+  border-radius: 10px;
+}
+
+/* ── Search Area ── */
+.recommend-search-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recommend-search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.recommend-search-icon {
+  position: absolute;
+  left: 1rem;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.recommend-search-input-wrapper .input {
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
+  height: 46px;
+  font-size: 0.95rem;
+}
+
+.recommend-clear-btn {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommend-clear-btn:hover {
+  color: #ff4b2b;
+}
+
+/* Autocomplete Suggestions */
+.recommend-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(18, 18, 24, 0.98);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  margin-top: 6px;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1200;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+.recommend-suggestions::-webkit-scrollbar {
+  width: 4px;
+}
+
+.recommend-suggestions::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 43, 0.3);
+  border-radius: 4px;
+}
+
+.recommend-suggestion-item {
+  padding: 0.75rem 1.2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommend-suggestion-item:hover,
+.recommend-suggestion-item.active {
+  background: rgba(255, 75, 43, 0.15);
+  color: #fff;
+  padding-left: 1.5rem;
+}
+
+/* ── Recommendations Output ── */
+.recommend-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.recommend-empty-icon {
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+.recommend-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+.recommend-source-movie {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.recommend-source-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.recommend-source-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* ── Collapsible Categories ── */
+.recommend-category {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.recommend-category.expanded {
+  border-color: rgba(255, 75, 43, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.recommend-category-header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.recommend-category-header:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.recommend-category-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommend-category-count {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.recommend-category.expanded .recommend-category-count {
+  background: rgba(255, 75, 43, 0.2);
+  color: #ff4b2b;
+}
+
+.recommend-category-arrow {
+  font-size: 0.8rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.recommend-category.expanded .recommend-category-arrow {
+  transform: rotate(180deg);
+}
+
+.recommend-category-content {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1rem;
+}
+
+/* Horizontal movie row inside sidebar */
+.recommend-movie-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 75, 43, 0.4) transparent;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  will-change: scroll-position;
+  scroll-snap-type: x proximity;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.recommend-movie-row::-webkit-scrollbar {
+  height: 3px;
+}
+
+.recommend-movie-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recommend-movie-row::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 43, 0.4);
+  border-radius: 4px;
+}
+
+/* Movie Card in Sidebar */
+.recommend-movie-card {
+  min-width: 110px;
+  max-width: 110px;
+  width: 110px;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+.recommend-movie-card:hover {
+  transform: translateY(-4px);
+}
+
+.recommend-poster-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.recommend-movie-card:hover .recommend-poster-wrapper {
+  border-color: rgba(255, 75, 43, 0.4);
+  box-shadow: 0 6px 16px rgba(255, 75, 43, 0.2);
+}
+
+.recommend-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.recommend-movie-card:hover .recommend-poster {
+  transform: scale(1.05);
+}
+
+/* Wishlist Badge on Poster */
+.recommend-wishlist-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(255, 75, 43, 0.4);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Movie Metadata */
+.recommend-movie-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.recommend-movie-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recommend-movie-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.recommend-movie-rating {
+  color: #ffd700;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .recommend-sidebar {
+    width: 100vw;
+  }
+}
