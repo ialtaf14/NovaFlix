@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     SPOTIFY_CLIENT_SECRET: str = ""
 
     # Google OAuth
-    GOOGLE_CLIENT_ID: str = "847548009302-62qnn3qsan87rtlvum62e3ibs73e3l33.apps.googleusercontent.com"
+    GOOGLE_CLIENT_ID: str = ""
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/google/callback"
 
