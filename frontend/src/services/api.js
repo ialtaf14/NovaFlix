@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/useAuthStore'
 
-// In production (Netlify), use the Render backend URL
-// In development, use the Vite proxy (/api)
-const BASE_URL = '/api'
+// In production (Vercel/Netlify), use VITE_API_URL
+// In development, fallback to local Vite proxy (/api)
+const BASE_URL = import.meta.env.VITE_API_URL || '/api'
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000 // 10 second timeout
+  timeout: 15000 // 15 second timeout
 })
 
 // ─── Request Deduplication Cache ─────────────────────────────────────────────
