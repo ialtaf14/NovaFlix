@@ -54,10 +54,58 @@ os.makedirs("uploads", exist_ok=True)
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 
+# ── Auto-download ML data files if missing ───────────────────────────────────
+import urllib.request
+
+# Hugging Face dataset repo URL (public)
+# After uploading pkl files to HuggingFace, update this base URL
+HF_BASE_URL = os.environ.get(
+    "HF_DATA_URL",
+    "https://huggingface.co/datasets/ialtaf14/novaflix-data/resolve/main"
+)
+
+PKL_FILES = [
+    "movies_dict.pkl",
+    "movies2_dict.pkl",
+    "new_df_dict.pkl",
+    "anime_dict.pkl",
+    "series_dict.pkl",
+]
+
+def download_data_files():
+    """Download missing ML pkl data files from Hugging Face on startup."""
+    try:
+        from core.config import get_settings
+        files_dir = get_settings().FILES_DIR
+    except Exception:
+        files_dir = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "Files")
+        )
+
+    os.makedirs(files_dir, exist_ok=True)
+
+    for filename in PKL_FILES:
+        dest = os.path.join(files_dir, filename)
+        if os.path.exists(dest):
+            print(f"[Data] ✓ {filename} already exists, skipping download.")
+            continue
+        url = f"{HF_BASE_URL}/{filename}"
+        print(f"[Data] Downloading {filename} from {url} ...")
+        try:
+            urllib.request.urlretrieve(url, dest)
+            size_mb = os.path.getsize(dest) / (1024 * 1024)
+            print(f"[Data] ✓ {filename} downloaded ({size_mb:.1f} MB)")
+        except Exception as e:
+            print(f"[Data] ✗ Failed to download {filename}: {e}")
+
+
 # ── Startup event: Clean up old sessions ──────────────────────────────────────
 @app.on_event("startup")
 def startup_event():
-    """Clean up sessions older than 90 days on server startup."""
+    """Download missing data files and clean up old sessions on startup."""
+    # Download pkl files if not present (e.g. on Render/cloud deployment)
+    download_data_files()
+
     deleted_count = session_manager.cleanup_old_sessions(
         max_age_seconds=7776000
     )  # 90 days
