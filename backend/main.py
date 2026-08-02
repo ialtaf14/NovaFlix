@@ -71,33 +71,36 @@ PKL_FILES = [
 def download_data_files():
     """Download missing ML pkl data files from GitHub Releases on startup."""
     try:
-        from core.config import get_settings
-        files_dir = get_settings().FILES_DIR
-    except Exception:
-        files_dir = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "Files")
-        )
-
-    os.makedirs(files_dir, exist_ok=True)
-
-    for filename in PKL_FILES:
-        dest = os.path.join(files_dir, filename)
-        if os.path.exists(dest):
-            print(f"[Data] ✓ {filename} already exists, skipping download.")
-            continue
-        url = f"{GH_RELEASE_BASE}/{filename}"
-        print(f"[Data] Downloading {filename} from GitHub Releases ...")
         try:
-            req = urllib.request.Request(
-                url,
-                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+            from core.config import get_settings
+            files_dir = get_settings().FILES_DIR
+        except Exception:
+            files_dir = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "Files")
             )
-            with urllib.request.urlopen(req) as response, open(dest, "wb") as out_file:
-                out_file.write(response.read())
-            size_mb = os.path.getsize(dest) / (1024 * 1024)
-            print(f"[Data] ✓ {filename} downloaded ({size_mb:.1f} MB)")
-        except Exception as e:
-            print(f"[Data] ✗ Failed to download {filename}: {e}")
+
+        os.makedirs(files_dir, exist_ok=True)
+
+        for filename in PKL_FILES:
+            dest = os.path.join(files_dir, filename)
+            if os.path.exists(dest):
+                print(f"[Data] [OK] {filename} already exists, skipping download.")
+                continue
+            url = f"{GH_RELEASE_BASE}/{filename}"
+            print(f"[Data] Downloading {filename} from GitHub Releases ...")
+            try:
+                req = urllib.request.Request(
+                    url,
+                    headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+                )
+                with urllib.request.urlopen(req) as response, open(dest, "wb") as out_file:
+                    out_file.write(response.read())
+                size_mb = os.path.getsize(dest) / (1024 * 1024)
+                print(f"[Data] [OK] {filename} downloaded ({size_mb:.1f} MB)")
+            except Exception as e:
+                print(f"[Data] [FAILED] Could not download {filename}: {e}")
+    except Exception as outer_e:
+        print(f"[Data] Download thread error: {outer_e}")
 
 
 # ── Startup event: Clean up old sessions ──────────────────────────────────────
@@ -390,7 +393,6 @@ async def party_reaction_send(sid, data):
 
 
 # ── Mount Socket.IO on /ws ────────────────────────────────────────────────────
-socket_app = socketio.ASGIApp(sio, other_asgi_app=app, socketio_path="/ws/socket.io")
-
-# The ASGI app that uvicorn actually serves
-application = socket_app
+fastapi_app = app
+app = socketio.ASGIApp(sio, other_asgi_app=fastapi_app, socketio_path="/ws/socket.io")
+application = app
