@@ -348,7 +348,7 @@ async def party_chat_send(sid, data):
     username = _sid_to_user.get(sid, "anonymous")
 
     if room_code and text:
-        from core import user_auth
+        from processing import auth as user_auth
 
         users = user_auth.load_users()
         udata = users.get(username, {})
