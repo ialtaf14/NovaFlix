@@ -36,8 +36,8 @@ class Settings(BaseSettings):
     GOOGLE_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/google/callback"
 
     # Facebook OAuth
-    FACEBOOK_APP_ID: str = "26310019485341381"
-    FACEBOOK_APP_SECRET: str = "e0f62cdb6d357d58511be0f10580afe8"
+    FACEBOOK_APP_ID: str = ""
+    FACEBOOK_APP_SECRET: str = ""
     FACEBOOK_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/facebook/callback"
 
 
