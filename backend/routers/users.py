@@ -1102,4 +1102,4 @@ def upload_image(body: UploadImageRequest, current_user: dict = Depends(get_curr
     with open(filepath, "wb") as f:
         f.write(base64.b64decode(encoded))
         
-    return {"url": f"http://localhost:8000/uploads/{filename}"}
+    return {"url": f"https://novaflix-backend.onrender.com/uploads/{filename}"}

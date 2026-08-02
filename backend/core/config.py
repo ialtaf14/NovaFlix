@@ -33,12 +33,12 @@ class Settings(BaseSettings):
     # Google OAuth
     GOOGLE_CLIENT_ID: str = "847548009302-62qnn3qsan87rtlvum62e3ibs73e3l33.apps.googleusercontent.com"
     GOOGLE_CLIENT_SECRET: str = ""
-    GOOGLE_REDIRECT_URI: str = "http://localhost:8000/api/auth/google/callback"
+    GOOGLE_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/google/callback"
 
     # Facebook OAuth
     FACEBOOK_APP_ID: str = "26310019485341381"
     FACEBOOK_APP_SECRET: str = "e0f62cdb6d357d58511be0f10580afe8"
-    FACEBOOK_REDIRECT_URI: str = "http://localhost:8000/api/auth/facebook/callback"
+    FACEBOOK_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/facebook/callback"
 
 
     # CORS — add your production domain via FRONTEND_ORIGIN in .env
@@ -49,6 +49,8 @@ class Settings(BaseSettings):
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
+        "https://novaflix.bice.vercel.app",
+        "https://novaflix-backend.onrender.com",
     ]
 
     @field_validator("ALLOWED_ORIGINS", mode="before")

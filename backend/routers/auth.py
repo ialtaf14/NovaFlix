@@ -130,7 +130,7 @@ def signup(body: SignupRequest, request: Request):
 
 # ── Google OAuth ──
 @router.get("/google/login")
-def google_login(redirect_to: str = "http://localhost:5173/login"):
+def google_login(redirect_to: str = "https://novaflix.bice.vercel.app/login"):
     params = {
         "client_id": settings.GOOGLE_CLIENT_ID,
         "redirect_uri": settings.GOOGLE_REDIRECT_URI,
@@ -151,7 +151,7 @@ async def google_callback(
     request: Request,
     code: str = None,
     error: str = None,
-    state: str = "http://localhost:5173/login",
+    state: str = "https://novaflix.bice.vercel.app/login",
 ):
     if error:
         return RedirectResponse(url=f"{state}?error={urllib.parse.quote(error)}")
@@ -234,7 +234,7 @@ async def google_callback(
 
 # ── Facebook OAuth ──
 @router.get("/facebook/login")
-def facebook_login(redirect_to: str = "http://localhost:5173/login"):
+def facebook_login(redirect_to: str = "https://novaflix.bice.vercel.app/login"):
     params = {
         "client_id": settings.FACEBOOK_APP_ID,
         "redirect_uri": settings.FACEBOOK_REDIRECT_URI,
@@ -252,7 +252,7 @@ async def facebook_callback(
     request: Request,
     code: str = None,
     error: str = None,
-    state: str = "http://localhost:5173/login",
+    state: str = "https://novaflix.bice.vercel.app/login",
 ):
     if error:
         return RedirectResponse(url=f"{state}?error={urllib.parse.quote(error)}")
