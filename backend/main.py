@@ -88,7 +88,12 @@ def download_data_files():
         url = f"{GH_RELEASE_BASE}/{filename}"
         print(f"[Data] Downloading {filename} from GitHub Releases ...")
         try:
-            urllib.request.urlretrieve(url, dest)
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+            )
+            with urllib.request.urlopen(req) as response, open(dest, "wb") as out_file:
+                out_file.write(response.read())
             size_mb = os.path.getsize(dest) / (1024 * 1024)
             print(f"[Data] ✓ {filename} downloaded ({size_mb:.1f} MB)")
         except Exception as e:
