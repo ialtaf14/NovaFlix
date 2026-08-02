@@ -2,8 +2,10 @@
 Application configuration — reads from .env file.
 """
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from functools import lru_cache
 import os
+import json
 
 
 class Settings(BaseSettings):
@@ -47,6 +49,21 @@ class Settings(BaseSettings):
         "http://localhost:3000",
         "http://127.0.0.1:5173",
     ]
+
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v):
+        if isinstance(v, str):
+            v = v.strip()
+            if v.startswith("[") and v.endswith("]"):
+                try:
+                    return json.loads(v)
+                except Exception:
+                    pass
+            if "," in v:
+                return [x.strip() for x in v.split(",") if x.strip()]
+            return [v]
+        return v
 
     def model_post_init(self, __context) -> None:
         if not self.SECRET_KEY:
