@@ -4,7 +4,7 @@ Movies router — recommendations, search, details, latest, browse, actor.
 from typing import Optional
 from fastapi import APIRouter, Query, HTTPException, Depends
 from processing import preprocess
-from core.deps import get_current_user
+from core.deps import get_current_user, get_optional_current_user
 
 router = APIRouter(prefix="/api/movies", tags=["movies"])
 
@@ -284,8 +284,6 @@ def get_personalized(current_user: dict = Depends(get_optional_current_user)):
         "recommended": recommended,
         "watch_history": watch_history
     }
-
-from core.deps import get_current_user, get_optional_current_user
 
 @router.get("/recommended-page")
 def get_recommended_page(current_user: dict = Depends(get_optional_current_user)):
