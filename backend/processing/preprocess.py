@@ -43,7 +43,23 @@ FALLBACK_PERSON = (
 OMDB_KEYS = ["b9a5e69d", "a9118a3a", "8265bd16", "2a567fb9", "f12ba140", "fd1e1f48"]
 
 # ── In-memory caches ──────────────────────────────────────────────────────────
+POSTER_CACHE_FILE = os.path.join(FILES_DIR, "poster_cache.json")
 _poster_cache: dict = {}
+
+def _init_poster_cache():
+    global _poster_cache
+    if os.path.exists(POSTER_CACHE_FILE):
+        try:
+            with open(POSTER_CACHE_FILE, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+                for k, v in raw.items():
+                    if isinstance(v, (list, tuple)) and len(v) == 3:
+                        _poster_cache[k] = tuple(v)
+        except Exception:
+            pass
+
+_init_poster_cache()
+
 _details_cache: dict = {}
 _latest_cache: Optional[list] = None
 _person_cache: dict = {}
@@ -1777,6 +1793,25 @@ def get_trending_movies(category: str = "daily", limit: int = 15) -> list:
             count += 1
 
     return results
+
+
+_trending_batch_cache: dict = {}
+_trending_batch_time: float = 0.0
+
+def get_all_trending_categories(limit: int = 15) -> dict:
+    global _trending_batch_cache, _trending_batch_time
+    now = time.time()
+    if _trending_batch_cache and (now - _trending_batch_time < 600):
+        return _trending_batch_cache
+
+    categories = ["daily", "weekly", "monthly", "region", "top_rated", "recent", "hidden_gems"]
+    out = {}
+    for c in categories:
+        out[c] = get_trending_movies(c, limit)
+
+    _trending_batch_cache = out
+    _trending_batch_time = now
+    return out
 
 
 # ── OMDB search ───────────────────────────────────────────────────────────────

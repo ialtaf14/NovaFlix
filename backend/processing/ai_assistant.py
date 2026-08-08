@@ -45,6 +45,10 @@ def get_movies_dataset():
         return []
     return df
 
+import time
+
+_mood_cache: dict = {}
+
 def get_mood_recommendations(username: str, mood: str, limit: int = 20, offset: int = 0):
     """
     Recommend movies based on a selected mood.
@@ -57,6 +61,11 @@ def get_mood_recommendations(username: str, mood: str, limit: int = 20, offset: 
     watched_list = set(user_data.get("watched_list", []))
     favorites = set(user_data.get("favorite_list", []))
     preferences = user_data.get("preferences", {}) or {}
+
+    cache_key = f"{username}:{mood}:{limit}:{offset}:{len(watched_list)}:{len(favorites)}"
+    now = time.time()
+    if cache_key in _mood_cache and (now - _mood_cache.get(f"{cache_key}:time", 0) < 600):
+        return _mood_cache[cache_key]
 
     df = get_movies_dataset()
     if df is None or len(df) == 0:
@@ -225,7 +234,10 @@ def get_mood_recommendations(username: str, mood: str, limit: int = 20, offset: 
 
     # Sort by final_score descending
     recommendations.sort(key=lambda x: x["score"], reverse=True)
-    return recommendations[offset : offset + limit]
+    res = recommendations[offset : offset + limit]
+    _mood_cache[cache_key] = res
+    _mood_cache[f"{cache_key}:time"] = time.time()
+    return res
 
 
 def answer_ai_query(username: str, query: str):

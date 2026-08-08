@@ -175,6 +175,10 @@ def get_details(title: str = Query(...)):
 def get_latest():
     return {"movies": preprocess.get_latest_movies()}
 
+@router.get("/trending-all")
+def get_trending_all():
+    return preprocess.get_all_trending_categories()
+
 @router.get("/trending/{category}")
 def get_trending(category: str):
     valid_categories = ["daily", "weekly", "monthly", "region", "top_rated", "recent", "hidden_gems"]

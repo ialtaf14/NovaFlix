@@ -140,15 +140,9 @@ export default function Discover() {
   // ── Session-cached data: fetched once, then instant on every tab switch ──
   const EMPTY_TRENDING = { daily: [], weekly: [], monthly: [], region: [], top_rated: [], recent: [], hidden_gems: [] }
 
-  const { data: trendingData, loading: trendingLoading } = useCachedResource('discover:trending', async () => {
-    const categories = ['daily', 'weekly', 'monthly', 'region', 'top_rated', 'recent', 'hidden_gems']
-    const results = await Promise.allSettled(categories.map(c => api.get(`/movies/trending/${c}`)))
-    const out = { daily: [], weekly: [], monthly: [], region: [], top_rated: [], recent: [], hidden_gems: [] }
-    results.forEach((res, i) => {
-      if (res.status === 'fulfilled') out[categories[i]] = res.value.data.movies
-    })
-    return out
-  })
+  const { data: trendingData, loading: trendingLoading } = useCachedResource('discover:trending', () =>
+    api.get('/movies/trending-all').then(r => r.data || EMPTY_TRENDING)
+  )
   const trending = trendingData || EMPTY_TRENDING
 
   const { data: latestData, loading: latestLoading } = useCachedResource('discover:latest', () =>
