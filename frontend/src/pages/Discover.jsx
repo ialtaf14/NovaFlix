@@ -157,11 +157,10 @@ export default function Discover() {
 
   // Personalized recs are keyed by wishlist/watched sizes: they refresh when the
   // user changes those, but stay cached across pure tab switches.
-  const persoKey = `discover:personalized:${user?.wishlist?.length ?? 0}:${user?.watched_list?.length ?? 0}`
+  const persoKey = `discover:personalized:${user?.username || 'guest'}:${user?.wishlist?.length ?? 0}:${user?.watched_list?.length ?? 0}`
   const { data: personalized, loading: personalizedLoading } = useCachedResource(
     persoKey,
-    () => api.get('/movies/personalized').then(r => r.data),
-    { enabled: !!user }
+    () => api.get('/movies/personalized').then(r => r.data)
   )
 
   // Stories (refreshable after posting a new story)

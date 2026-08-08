@@ -5,6 +5,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, Query, Body
 from typing import List, Optional
 from routers.auth import get_current_user
+from core.deps import get_optional_current_user
 from processing import auth as user_auth
 from processing import preprocess, ai_assistant, activity_store
 
@@ -645,9 +646,9 @@ def get_moods(
     mood: str = Query(...),
     limit: int = 20,
     offset: int = 0,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(get_optional_current_user)
 ):
-    uname = current_user["username"]
+    uname = current_user.get("username", "guest")
     suggestions = ai_assistant.get_mood_recommendations(uname, mood, limit=limit, offset=offset)
     return suggestions
 

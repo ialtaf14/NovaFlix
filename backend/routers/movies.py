@@ -223,9 +223,9 @@ def get_screenshots(title: str = Query(...)):
 
 
 @router.get("/personalized")
-def get_personalized(current_user: dict = Depends(get_current_user)):
-    uname = current_user["username"]
-    udata = current_user["data"]
+def get_personalized(current_user: dict = Depends(get_optional_current_user)):
+    uname = current_user.get("username", "guest")
+    udata = current_user.get("data", {}) or {}
     
     # 1. Continue Watching (watch_timestamp > 0 and watched == False)
     interactions = udata.get("interactions", {})
@@ -332,11 +332,11 @@ def get_collection(
 @router.get("/smart-recommend")
 def smart_recommend(
     title: str = Query(..., description="Movie title to base recommendations on"),
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_optional_current_user),
 ):
     """
     Smart recommendations: returns movies grouped by cast, director, genre,
-    and similar IMDB rating.  Excludes user's watched list and prioritises
+    and similar IMDB rating. Excludes user's watched list and prioritises
     movies on their wishlist.
     """
     import pandas as pd
@@ -349,16 +349,23 @@ def smart_recommend(
     if title not in titles:
         raise HTTPException(status_code=404, detail=f"Movie '{title}' not found in database.")
 
-    udata = current_user["data"]
+    udata = current_user.get("data", {}) or {}
     watched_set = set(udata.get("watched_list", []))
     wishlist_set = set(udata.get("wishlist", []))
 
     # ── load data ──
     movies_df = preprocess.load_movies_df()
     movies2_df = preprocess.load_movies2_df()
-    merged = pd.merge(movies_df, movies2_df[["title", "vote_average"]], on="title", how="inner")
+    if not movies2_df.empty and "vote_average" in movies2_df.columns:
+        merged = pd.merge(movies_df, movies2_df[["title", "vote_average"]], on="title", how="left")
+    else:
+        merged = movies_df.copy()
+        if "vote_average" not in merged.columns:
+            merged["vote_average"] = 7.0
 
     src_row = merged[merged["title"] == title]
+    if src_row.empty:
+        src_row = movies_df[movies_df["title"] == title]
     if src_row.empty:
         raise HTTPException(status_code=404, detail="Movie metadata not found.")
     src = src_row.iloc[0]

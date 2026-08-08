@@ -51,10 +51,12 @@ def get_optional_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme_optional),
 ) -> dict:
     if not credentials:
-        return {"username": "guest"}
+        return {"username": "guest", "data": {}}
     token = credentials.credentials
     payload = decode_access_token(token)
     if not payload:
-        return {"username": "guest"}
+        return {"username": "guest", "data": {}}
     username = payload.get("sub", "guest")
-    return {"username": username}
+    users = user_auth.load_users()
+    udata = users.get(username, {}) if username != "guest" else {}
+    return {"username": username, "data": udata}

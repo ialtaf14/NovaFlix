@@ -1103,25 +1103,21 @@ def get_latest_movies() -> list:
                     poster = data.get("Poster", FALLBACK_POSTER)
                     if not poster or poster == "N/A":
                         poster = FALLBACK_POSTER
-                    item = {
+                    results.append({
                         "imdbID": imdb_id,
                         "title": data.get("Title", "Unknown"),
                         "year": data.get("Year", "N/A"),
                         "poster": poster,
                         "rating": data.get("imdbRating", "N/A"),
                         "genre": data.get("Genre", "N/A"),
-                    }
-                    _inject_novaflix_rating(data.get("Title", "Unknown"), item)
-                    results.append(item)
+                    })
                     break
         except Exception:
             continue
     _latest_cache = results
     return results
 
-
 # ── Anime Details ────────────────────────────────────────────────────────────
-
 
 def get_anime_details(title: str) -> dict:
     if title in _anime_details_cache:
@@ -1729,20 +1725,27 @@ def get_trending_movies(category: str = "daily", limit: int = 15) -> list:
 
     df = df.head(limit * 3)
 
+    # Try to get posters but never block results on it.
+    # On cold start the OMDB calls may fail — still return movies with placeholder poster.
     from concurrent.futures import ThreadPoolExecutor
 
     def fetch_wrapper(title):
-        poster, rating, year = fetch_poster(title)
+        try:
+            poster, rating, year = fetch_poster(title)
+        except Exception:
+            poster, rating, year = FALLBACK_POSTER, "N/A", "N/A"
         return (title, poster, rating, year)
 
     titles = df["title"].tolist()
     results = []
     count = 0
-    with ThreadPoolExecutor(max_workers=15) as executor:
-        for title, poster, rating, year in executor.map(fetch_wrapper, titles):
-            if count >= limit:
-                break
-            if poster != FALLBACK_POSTER:
+
+    # Try with poster fetch first (quick timeout)
+    try:
+        with ThreadPoolExecutor(max_workers=15) as executor:
+            for title, poster, rating, year in executor.map(fetch_wrapper, titles, timeout=8):
+                if count >= limit:
+                    break
                 item = {
                     "title": title,
                     "poster": poster,
@@ -1752,6 +1755,27 @@ def get_trending_movies(category: str = "daily", limit: int = 15) -> list:
                 _inject_novaflix_rating(title, item)
                 results.append(item)
                 count += 1
+    except Exception:
+        pass
+
+    # If posters all failed, fall back to returning titles from df directly
+    if not results:
+        for _, row in df.iterrows():
+            if count >= limit:
+                break
+            title = row["title"]
+            # Check in-memory details cache first
+            cached = _details_cache.get(title, {})
+            item = {
+                "title": title,
+                "poster": cached.get("poster") or FALLBACK_POSTER,
+                "rating": cached.get("rating") or str(row.get("vote_average", "N/A")),
+                "year": cached.get("year") or str(row.get("release_date", "N/A"))[:4],
+            }
+            _inject_novaflix_rating(title, item)
+            results.append(item)
+            count += 1
+
     return results
 
 
