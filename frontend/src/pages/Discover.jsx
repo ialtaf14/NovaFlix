@@ -248,7 +248,7 @@ export default function Discover() {
   const { data: trendingData, loading: trendingLoading } = useCachedResource('discover:trending', () =>
     api.get('/movies/trending-all').then(r => r.data || EMPTY_TRENDING)
   )
-  const trending = trendingData || EMPTY_TRENDING
+  const trending = { ...EMPTY_TRENDING, ...(trendingData || {}) }
 
   const { data: latestData, loading: latestLoading } = useCachedResource('discover:latest', () =>
     api.get('/movies/latest').then(r => r.data?.movies || []))

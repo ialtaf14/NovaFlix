@@ -146,15 +146,42 @@ export default function StoriesViewer() {
       audioPlayerRef.current = null
     }
 
-    if (activeStory?.type === 'custom_editor' && activeStory.overlays && !showMoreOptions && !showDeleteConfirm && !activeStickerTooltip) {
-      const musicOverlay = activeStory.overlays.find(o => o.type === 'music')
-      if (musicOverlay && musicOverlay.music?.previewUrl) {
-        audioPlayerRef.current = new Audio(musicOverlay.music.previewUrl)
-        audioPlayerRef.current.volume = 0.5
-        audioPlayerRef.current.play().catch(e => console.error("Story music play error", e))
+    const musicOverlay = activeStory?.overlays?.find(o => o.type === 'music') || (activeStory?.music ? { music: activeStory.music } : null)
+
+    if (musicOverlay?.music && !showMoreOptions && !showDeleteConfirm && !activeStickerTooltip) {
+      let isSubscribed = true
+      const playSong = async () => {
+        let url = musicOverlay.music.previewUrl || musicOverlay.music.preview_url || musicOverlay.music.audioUrl
+        
+        if (!url && musicOverlay.music.name) {
+          try {
+            const q = `${musicOverlay.music.name} ${musicOverlay.music.artist || ''}`
+            const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&media=music&limit=1`)
+            const data = await res.json()
+            if (data.results?.[0]?.previewUrl) {
+              url = data.results[0].previewUrl
+            }
+          } catch (_) {}
+        }
+
+        if (url && isSubscribed) {
+          const audio = new Audio(url)
+          audio.volume = 0.6
+          audioPlayerRef.current = audio
+          audio.play().catch(e => console.warn("Story music play warning:", e))
+        }
+      }
+
+      playSong()
+      return () => {
+        isSubscribed = false
+        if (audioPlayerRef.current) {
+          audioPlayerRef.current.pause()
+          audioPlayerRef.current = null
+        }
       }
     }
-    
+
     return () => {
       if (audioPlayerRef.current) {
         audioPlayerRef.current.pause()

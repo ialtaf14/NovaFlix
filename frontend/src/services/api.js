@@ -1,9 +1,13 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/useAuthStore'
 
-// In production (Vercel/Netlify), use VITE_API_URL
-// In development, fallback to local Vite proxy (/api)
-const BASE_URL = import.meta.env.VITE_API_URL || '/api'
+let rawBase = import.meta.env.VITE_API_URL || '/api'
+if (rawBase.endsWith('/')) rawBase = rawBase.slice(0, -1)
+if (!rawBase.endsWith('/api') && rawBase.startsWith('http')) {
+  rawBase = rawBase + '/api'
+}
+const BASE_URL = rawBase
+
 const api = axios.create({
   baseURL: BASE_URL,
   timeout: 15000 // 15 second timeout

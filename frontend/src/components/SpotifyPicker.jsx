@@ -89,15 +89,29 @@ export default function SpotifyPicker({ isOpen, onClose, onSelect }) {
     setPlayingId(null);
   };
 
-  const handleSelect = (track) => {
+  const handleSelect = async (track) => {
     stopAudio();
+    let previewUrl = track.preview_url || null;
+    const artistNames = track.artists?.map(a => a.name).join(', ') || 'Unknown Artist';
+
+    if (!previewUrl) {
+      try {
+        const q = `${track.name} ${artistNames}`;
+        const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&media=music&limit=1`);
+        const data = await res.json();
+        if (data.results?.[0]?.previewUrl) {
+          previewUrl = data.results[0].previewUrl;
+        }
+      } catch (_) {}
+    }
+
     const albumArt = track.album?.images?.[0]?.url || track.album?.images?.[1]?.url || null;
     onSelect({
       id: track.id,
       name: track.name,
-      artist: track.artists?.map(a => a.name).join(', ') || 'Unknown Artist',
+      artist: artistNames,
       albumArt,
-      previewUrl: track.preview_url || null,
+      previewUrl,
       durationMs: track.duration_ms,
     });
     onClose();

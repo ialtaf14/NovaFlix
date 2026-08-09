@@ -122,8 +122,11 @@ def _get_deleted_movies() -> set:
     return set()
 
 
-@lru_cache(maxsize=128)
+_df_cache = {}
+
 def load_movies_df():
+    if "movies" in _df_cache:
+        return _df_cache["movies"]
     path = os.path.join(FILES_DIR, "movies_dict.pkl")
     if not os.path.exists(path):
         return pd.DataFrame()
@@ -132,11 +135,14 @@ def load_movies_df():
     deleted = _get_deleted_movies()
     if deleted:
         df = df[~df["title"].isin(deleted)]
+    if not df.empty:
+        _df_cache["movies"] = df
     return df
 
 
-@lru_cache(maxsize=1)
 def load_movies2_df():
+    if "movies2" in _df_cache:
+        return _df_cache["movies2"]
     path = os.path.join(FILES_DIR, "movies2_dict.pkl")
     if not os.path.exists(path):
         return pd.DataFrame()
@@ -145,35 +151,47 @@ def load_movies2_df():
     deleted = _get_deleted_movies()
     if deleted:
         df = df[~df["title"].isin(deleted)]
+    if not df.empty:
+        _df_cache["movies2"] = df
     return df
 
 
-@lru_cache(maxsize=1)
 def load_new_df():
+    if "new_df" in _df_cache:
+        return _df_cache["new_df"]
     path = os.path.join(FILES_DIR, "new_df_dict.pkl")
     if not os.path.exists(path):
         return pd.DataFrame()
     with open(path, "rb") as f:
-        return pd.DataFrame.from_dict(pickle.load(f))
+        df = pd.DataFrame.from_dict(pickle.load(f))
+    if not df.empty:
+        _df_cache["new_df"] = df
+    return df
 
 
-@lru_cache(maxsize=1)
 def load_series_df():
+    if "series" in _df_cache:
+        return _df_cache["series"]
     path = os.path.join(FILES_DIR, "series_dict.pkl")
     if not os.path.exists(path):
         return pd.DataFrame()
     with open(path, "rb") as f:
         df = pd.DataFrame.from_dict(pickle.load(f))
+    if not df.empty:
+        _df_cache["series"] = df
     return df
 
 
-@lru_cache(maxsize=1)
 def load_anime_df():
+    if "anime" in _df_cache:
+        return _df_cache["anime"]
     path = os.path.join(FILES_DIR, "anime_dict.pkl")
     if not os.path.exists(path):
         return pd.DataFrame()
     with open(path, "rb") as f:
         df = pd.DataFrame.from_dict(pickle.load(f))
+    if not df.empty:
+        _df_cache["anime"] = df
     return df
 
 
@@ -1908,7 +1926,7 @@ _trending_batch_time: float = 0.0
 def get_all_trending_categories(limit: int = 15) -> dict:
     global _trending_batch_cache, _trending_batch_time
     now = time.time()
-    if _trending_batch_cache and (now - _trending_batch_time < 600):
+    if _trending_batch_cache and (now - _trending_batch_time < 600) and any(len(v) > 0 for v in _trending_batch_cache.values()):
         return _trending_batch_cache
 
     categories = ["daily", "weekly", "monthly", "region", "top_rated", "recent", "hidden_gems"]
@@ -1916,8 +1934,9 @@ def get_all_trending_categories(limit: int = 15) -> dict:
     for c in categories:
         out[c] = get_trending_movies(c, limit)
 
-    _trending_batch_cache = out
-    _trending_batch_time = now
+    if any(len(v) > 0 for v in out.values()):
+        _trending_batch_cache = out
+        _trending_batch_time = now
     return out
 
 
