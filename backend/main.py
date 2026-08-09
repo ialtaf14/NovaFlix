@@ -296,6 +296,71 @@ async def mark_seen(sid, data):
 
 
 @sio.event
+async def unsend_message(sid, data):
+    """Client emits {msg_id, receiver} to unsend a message for everyone."""
+    requester = _sid_to_user.get(sid)
+    if not requester:
+        return
+    msg_id = (data or {}).get("msg_id")
+    receiver = (data or {}).get("receiver")
+    if not msg_id or not receiver:
+        return
+    try:
+        chat_store.delete_message(requester, receiver, msg_id, requester, for_everyone=True)
+        payload = {"msg_id": msg_id, "conversation_id": chat_store._conv_key(requester, receiver), "by": requester}
+        for osid in _connected.get(receiver, set()):
+            await sio.emit("message_unsent", payload, to=osid)
+        for ssid in _connected.get(requester, set()):
+            await sio.emit("message_unsent", payload, to=ssid)
+    except Exception as e:
+        print(f"[WS] unsend_message error: {e}")
+
+
+@sio.event
+async def edit_message(sid, data):
+    """Client emits {msg_id, receiver, new_content} to edit a sent message."""
+    requester = _sid_to_user.get(sid)
+    if not requester:
+        return
+    msg_id = (data or {}).get("msg_id")
+    receiver = (data or {}).get("receiver")
+    new_content = (data or {}).get("new_content")
+    if not msg_id or not receiver or not new_content:
+        return
+    try:
+        chat_store.edit_message(requester, receiver, msg_id, requester, new_content)
+        payload = {"msg_id": msg_id, "new_content": new_content, "conversation_id": chat_store._conv_key(requester, receiver), "by": requester}
+        for osid in _connected.get(receiver, set()):
+            await sio.emit("message_edited", payload, to=osid)
+        for ssid in _connected.get(requester, set()):
+            await sio.emit("message_edited", payload, to=ssid)
+    except Exception as e:
+        print(f"[WS] edit_message error: {e}")
+
+
+@sio.event
+async def react_message(sid, data):
+    """Client emits {msg_id, receiver, emoji} to add/remove a reaction."""
+    requester = _sid_to_user.get(sid)
+    if not requester:
+        return
+    msg_id = (data or {}).get("msg_id")
+    receiver = (data or {}).get("receiver")
+    emoji = (data or {}).get("emoji", "")
+    if not msg_id or not receiver:
+        return
+    try:
+        chat_store.add_reaction(requester, receiver, msg_id, requester, emoji)
+        payload = {"msg_id": msg_id, "emoji": emoji, "username": requester, "conversation_id": chat_store._conv_key(requester, receiver)}
+        for osid in _connected.get(receiver, set()):
+            await sio.emit("message_reacted", payload, to=osid)
+        for ssid in _connected.get(requester, set()):
+            await sio.emit("message_reacted", payload, to=ssid)
+    except Exception as e:
+        print(f"[WS] react_message error: {e}")
+
+
+@sio.event
 async def join_party(sid, data):
     room_code = data.get("room_code")
     username = _sid_to_user.get(sid, "anonymous")

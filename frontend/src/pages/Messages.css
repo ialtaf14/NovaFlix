@@ -983,3 +983,65 @@
 
 /* Seen indicator tint */
 .seen-indicator { color: rgba(120,200,255,0.85); font-weight: 600; }
+
+/* Inline Message Editing */
+.chat-edit-inline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 200px;
+}
+.chat-edit-inline-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #fff;
+  font-size: 0.88rem;
+  outline: none;
+}
+.chat-edit-inline-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.chat-edit-btn {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chat-edit-btn.save {
+  background: #ff4b2b;
+  color: #fff;
+}
+.chat-edit-btn.save:hover {
+  background: #e03e20;
+}
+.chat-edit-btn.cancel {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+}
+.chat-edit-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Delete Chat Button */
+.delete-chat-btn {
+  background: rgba(255, 75, 43, 0.1) !important;
+  border-color: rgba(255, 75, 43, 0.25) !important;
+  color: #ff4b2b !important;
+}
+.delete-chat-btn:hover {
+  background: rgba(255, 75, 43, 0.25) !important;
+  transform: scale(1.08);
+}
+
+/* Message Triggers */
+.edit-trigger:hover, .delete-for-me-trigger:hover {
+  transform: scale(1.2);
+}

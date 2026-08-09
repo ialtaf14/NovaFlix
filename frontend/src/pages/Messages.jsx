@@ -111,9 +111,7 @@ export default function Messages() {
 
       if (isForActiveChat) {
         setMessages(prev => {
-          // Already have this saved message? (echo can arrive twice)
           if (prev.some(m => m.id === msg.id)) return prev
-          // De-dupe: replace optimistic temp message from self
           if (msg.sender === user.username) {
             const withoutTemp = prev.filter(m => !(String(m.id).startsWith('temp-') && m.content === msg.content))
             return [...withoutTemp, msg]
@@ -121,11 +119,41 @@ export default function Messages() {
           return [...prev, msg]
         })
         if (msg.sender !== user.username) {
-          // Live read-receipt: tell the sender we've seen it instantly
           socket.emit('mark_seen', { other: msg.sender })
         }
       }
       fetchConversations(false)
+    })
+
+    // Real-time Unsend event
+    socket.on('message_unsent', ({ msg_id }) => {
+      setMessages(prev => prev.filter(m => m.id !== msg_id))
+      fetchConversations(false)
+    })
+
+    // Real-time Edit event
+    socket.on('message_edited', ({ msg_id, new_content }) => {
+      setMessages(prev => prev.map(m =>
+        m.id === msg_id ? { ...m, content: new_content, edited: true } : m
+      ))
+      fetchConversations(false)
+    })
+
+    // Real-time Reaction event
+    socket.on('message_reacted', ({ msg_id, emoji, username }) => {
+      setMessages(prev => prev.map(m => {
+        if (m.id === msg_id) {
+          const reactions = { ...(m.reactions || {}) }
+          const userList = reactions[emoji] || []
+          if (userList.includes(username)) {
+            reactions[emoji] = userList.filter(u => u !== username)
+          } else {
+            reactions[emoji] = [...userList, username]
+          }
+          return { ...m, reactions }
+        }
+        return m
+      }))
     })
 
     // Other user opened our chat → flip our sent messages to "Seen" live
@@ -230,7 +258,6 @@ export default function Messages() {
     if (socketRef.current?.connected) {
       socketRef.current.emit('send_message', msgPayload)
     } else {
-      // Offline-safe fallback: REST send so the message is never lost
       api.post(`/chat/${activeConv.username}/send`, {
         content: msgPayload.content,
         type: msgPayload.type,
@@ -243,7 +270,6 @@ export default function Messages() {
       }).catch(err => console.error('Send failed:', err))
     }
 
-    // Optimistic append (replaced when server echoes the saved message)
     setMessages(prev => [...prev, {
       ...msgPayload,
       id: 'temp-' + Date.now(),
@@ -262,7 +288,6 @@ export default function Messages() {
       e.preventDefault()
       handleSendMessage()
     } else {
-      // Throttled typing indicator (max once per 1.5s)
       const now = Date.now()
       if (now - lastTypingEmitRef.current > 1500) {
         lastTypingEmitRef.current = now
@@ -278,8 +303,13 @@ export default function Messages() {
   const handleEmojiClick = (emoji) => setInputText(prev => prev + emoji)
 
   const handleAddReaction = async (msgId, emoji) => {
+    if (!activeConv) return
     try {
-      await api.post(`/chat/${activeConv.username}/react/${msgId}`, { emoji })
+      if (socketRef.current?.connected) {
+        socketRef.current.emit('react_message', { msg_id: msgId, receiver: activeConv.username, emoji })
+      } else {
+        await api.post(`/chat/${activeConv.username}/react/${msgId}`, { emoji })
+      }
       setMessages(prev => prev.map(m => {
         if (m.id === msgId) {
           const reactions = { ...(m.reactions || {}) }
@@ -298,16 +328,64 @@ export default function Messages() {
     }
   }
 
-  // Instagram-style "Unsend"
+  // Instagram-style "Unsend" (Delete for everyone)
   const handleUnsend = async (msgId) => {
+    if (!activeConv) return
     try {
-      await api.delete(`/chat/${activeConv.username}/message/${msgId}`)
+      if (socketRef.current?.connected) {
+        socketRef.current.emit('unsend_message', { msg_id: msgId, receiver: activeConv.username })
+      } else {
+        await api.delete(`/chat/${activeConv.username}/message/${msgId}?for_everyone=true`)
+      }
       setMessages(prev => prev.filter(m => m.id !== msgId))
       fetchConversations(false)
     } catch (err) {
       console.error("Unsend failed:", err)
     }
   }
+
+  // Delete message for me
+  const handleDeleteForMe = async (msgId) => {
+    if (!activeConv) return
+    try {
+      await api.delete(`/chat/${activeConv.username}/message/${msgId}?for_everyone=false`)
+      setMessages(prev => prev.filter(m => m.id !== msgId))
+    } catch (err) {
+      console.error("Delete for me failed:", err)
+    }
+  }
+
+  // Edit message
+  const handleEditMessage = async (msgId, newContent) => {
+    if (!activeConv || !newContent.trim()) return
+    try {
+      if (socketRef.current?.connected) {
+        socketRef.current.emit('edit_message', { msg_id: msgId, receiver: activeConv.username, new_content: newContent.trim() })
+      } else {
+        await api.put(`/chat/${activeConv.username}/message/${msgId}`, { content: newContent.trim() })
+      }
+      setMessages(prev => prev.map(m =>
+        m.id === msgId ? { ...m, content: newContent.trim(), edited: true } : m
+      ))
+    } catch (err) {
+      console.error("Edit message failed:", err)
+    }
+  }
+
+  // Delete Entire Chat
+  const handleDeleteChat = async () => {
+    if (!activeConv) return
+    if (!window.confirm(`Delete chat with @${activeConv.username}? This will remove the conversation from your inbox.`)) return
+    try {
+      await api.delete(`/chat/${activeConv.username}`)
+      setConversations(prev => prev.filter(c => c.username !== activeConv.username))
+      setActiveConv(null)
+      setMessages([])
+    } catch (err) {
+      console.error("Delete chat failed:", err)
+    }
+  }
+
 
   // ── New chat composer ──
   useEffect(() => {
@@ -436,7 +514,8 @@ export default function Messages() {
                   </span>
                 </div>
                 <div className="chat-header-actions">
-                  <button className="chat-action-btn" title="Profile" onClick={() => navigate(`/user/${activeConv.username}`)}>👤</button>
+                  <button className="chat-action-btn" title="View Profile" onClick={() => navigate(`/user/${activeConv.username}`)}>👤</button>
+                  <button className="chat-action-btn delete-chat-btn" title="Delete Chat" onClick={handleDeleteChat}>🗑️</button>
                 </div>
               </div>
 
@@ -478,6 +557,8 @@ export default function Messages() {
                         onReact={(emoji) => handleAddReaction(msg.id, emoji)}
                         onReply={(m) => setReplyingTo(m)}
                         onUnsend={() => handleUnsend(msg.id)}
+                        onEdit={(m, newContent) => handleEditMessage(m.id, newContent)}
+                        onDeleteForMe={() => handleDeleteForMe(msg.id)}
                       />
                     </React.Fragment>
                   )
@@ -624,10 +705,12 @@ export default function Messages() {
   )
 }
 
-function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, isLastMine, onReact, onReply, onUnsend }) {
+function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, isLastMine, onReact, onReply, onUnsend, onEdit, onDeleteForMe }) {
   const isMine = msg.sender === currentUser
   const [movieDetails, setMovieDetails] = useState(null)
   const [movieLoadError, setMovieLoadError] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editText, setEditText] = useState(msg.content || '')
   const navigate = useNavigate()
   const isMovieShare = msg.content?.startsWith('[MOVIE_SHARE:')
 
@@ -650,7 +733,32 @@ function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, is
     } catch (err) { console.error(err) }
   }
 
+  const handleSaveEdit = () => {
+    if (!editText.trim()) return
+    onEdit(msg, editText.trim())
+    setIsEditing(false)
+  }
+
   const renderContent = () => {
+    if (isEditing) {
+      return (
+        <div className="chat-edit-inline-wrap">
+          <input
+            type="text"
+            className="chat-edit-inline-input"
+            value={editText}
+            onChange={e => setEditText(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') handleSaveEdit(); if (e.key === 'Escape') setIsEditing(false); }}
+            autoFocus
+          />
+          <div className="chat-edit-inline-actions">
+            <button className="chat-edit-btn save" onClick={handleSaveEdit}>Save</button>
+            <button className="chat-edit-btn cancel" onClick={() => { setIsEditing(false); setEditText(msg.content); }}>Cancel</button>
+          </div>
+        </div>
+      )
+    }
+
     if (isMovieShare) {
       if (movieLoadError) {
         return <div className="chat-movie-share-card glass" style={{ padding: '1rem', color: '#ff4b2b' }}>⚠️ Movie details unavailable</div>
@@ -719,7 +827,7 @@ function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, is
           {renderContent()}
 
           <div className="bubble-reaction-picker">
-            {['❤️', '👍', '🔥', '😂'].map(emoji => (
+            {['❤️', '👍', '🔥', '😂', '😮', '😢'].map(emoji => (
               <span key={emoji} onClick={() => onReact(emoji)} className="reaction-trigger-emoji">{emoji}</span>
             ))}
             <span
@@ -730,16 +838,34 @@ function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, is
             >
               ↩️
             </span>
+            {isMine && !isMovieShare && !String(msg.id).startsWith('temp-') && (
+              <span
+                onClick={() => { setIsEditing(true); setEditText(msg.content); }}
+                className="reaction-trigger-emoji edit-trigger"
+                title="Edit message"
+                style={{ borderLeft: '1px solid rgba(255,255,255,0.15)', paddingLeft: '6px', marginLeft: '2px' }}
+              >
+                ✏️
+              </span>
+            )}
             {isMine && !String(msg.id).startsWith('temp-') && (
               <span
                 onClick={onUnsend}
                 className="reaction-trigger-emoji unsend-trigger"
-                title="Unsend"
+                title="Unsend for everyone"
                 style={{ borderLeft: '1px solid rgba(255,255,255,0.15)', paddingLeft: '6px', marginLeft: '2px' }}
               >
                 🗑️
               </span>
             )}
+            <span
+              onClick={onDeleteForMe}
+              className="reaction-trigger-emoji delete-for-me-trigger"
+              title="Delete for me"
+              style={{ borderLeft: '1px solid rgba(255,255,255,0.15)', paddingLeft: '6px', marginLeft: '2px' }}
+            >
+              ❌
+            </span>
           </div>
         </div>
 
@@ -767,3 +893,4 @@ function MessageBubble({ msg, currentUser, otherAvatar, showAvatar, messages, is
     </div>
   )
 }
+

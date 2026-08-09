@@ -313,9 +313,12 @@ def delete_message(user1: str, user2: str, msg_id: str, requester: str, for_ever
     c = conn.cursor()
     
     if for_everyone:
-        c.execute("UPDATE messages SET deleted = 1, content = 'This message was deleted' WHERE id = ? AND sender = ?",
-                  (msg_id, requester))
+        # Instagram style Unsend: permanently delete message for both parties
+        c.execute("DELETE FROM messages WHERE id = ? AND sender = ?", (msg_id, requester))
+        c.execute("DELETE FROM message_status WHERE message_id = ?", (msg_id,))
+        c.execute("DELETE FROM reactions WHERE message_id = ?", (msg_id,))
     else:
+        # Delete for me only
         c.execute("INSERT OR REPLACE INTO message_status (message_id, username, is_deleted) VALUES (?, ?, 1)",
                   (msg_id, requester))
     conn.commit()
@@ -394,49 +397,9 @@ def mark_read(msg_id: str, requester: str):
     conn.commit()
 
 def seed_demo_messages(username: str, other_users: list):
-    conn = get_db()
-    c = conn.cursor()
-    c.execute("SELECT COUNT(*) FROM conversation_members WHERE username = ?", (username,))
-    if c.fetchone()[0] > 0:
-        return
-        
-    if not other_users:
-        return
+    # Disabled so no dummy messages are ever auto-seeded into any account
+    return
 
-    other = other_users[0]
-    conv_id = _conv_key(username, other)
-    t = int(time.time() * 1000)
-    
-    c.execute("INSERT OR IGNORE INTO conversations (id, type, created_at) VALUES (?, 'direct', ?)", (conv_id, t))
-    c.execute("INSERT OR IGNORE INTO conversation_members (conversation_id, username, role, joined_at) VALUES (?, ?, 'member', ?)", (conv_id, username, t))
-    c.execute("INSERT OR IGNORE INTO conversation_members (conversation_id, username, role, joined_at) VALUES (?, ?, 'member', ?)", (conv_id, other, t))
-    
-    msgs = [
-        {"role": "other", "content": "Hey! 👋 Have you seen Interstellar?", "type": "text"},
-        {"role": "me", "content": "Yes! One of my all time favorites! 💙", "type": "text"},
-        {"role": "other", "content": "Same here! It's a masterpiece..", "type": "text"},
-        {"role": "me", "content": "Added to my watchlist! Thanks 😊", "type": "movie", "movie_data": {
-            "title": "Interstellar", "year": "2014", "rating": "8.6",
-            "genre": "Sci-Fi, Adventure, Drama",
-            "poster": "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMTEtYTVmZDEwNjQ2MzM3XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
-        }}
-    ]
-    
-    for i, m in enumerate(msgs):
-        sender = username if m["role"] == "me" else other
-        msg_id = str(uuid.uuid4())
-        mdata = json.dumps(m.get("movie_data")) if m.get("movie_data") else None
-        ts = t - (len(msgs) - i) * 60000
-        
-        c.execute("""
-            INSERT INTO messages (id, conversation_id, sender, content, type, movie_data, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (msg_id, conv_id, sender, m["content"], m["type"], mdata, ts))
-        
-        c.execute("INSERT INTO message_status (message_id, username, is_seen) VALUES (?, ?, 1)", (msg_id, username))
-        c.execute("INSERT INTO message_status (message_id, username, is_seen) VALUES (?, ?, 1)", (msg_id, other))
-        
-    conn.commit()
 
 # Group chat functions
 

@@ -177,6 +177,15 @@ def clear_chat(
     chat_store.clear_chat(uname, target_username, uname)
     return {"detail": "Chat cleared"}
 
+@router.delete("/{target_username}")
+def delete_conversation_route(
+    target_username: str,
+    current_user: dict = Depends(get_current_user)
+):
+    uname = current_user["username"]
+    chat_store.clear_chat(uname, target_username, uname)
+    return {"detail": "Conversation deleted"}
+
 # ── Star Message ──────────────────────────────────────────────────────────────
 
 @router.post("/{target_username}/star/{msg_id}")
