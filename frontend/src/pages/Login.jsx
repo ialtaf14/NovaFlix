@@ -91,10 +91,7 @@ export default function Login() {
     window.location.href = `/api/auth/google/login?redirect_to=${redirectTo}`
   }
 
-  const loginWithFacebook = () => {
-    const redirectTo = encodeURIComponent(window.location.origin + window.location.pathname)
-    window.location.href = `/api/auth/facebook/login?redirect_to=${redirectTo}`
-  }
+
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
@@ -148,10 +145,7 @@ export default function Login() {
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G" />
               Sign Up with Google
             </button>
-            <button type="button" className="btn btn-facebook" onClick={() => loginWithFacebook()} disabled={signupLoading}>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="F" />
-              Sign Up with Facebook
-            </button>
+
             
             <p className="auth-switch">
               Already have an account? <span onClick={() => switchTab('login')}>Sign In</span>
@@ -187,10 +181,7 @@ export default function Login() {
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="G" />
               Sign In with Google
             </button>
-            <button type="button" className="btn btn-facebook" onClick={() => loginWithFacebook()} disabled={loginLoading}>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="F" />
-              Sign In with Facebook
-            </button>
+
 
             <p className="auth-switch">
               Don't have an account? <span onClick={() => switchTab('signup')}>Sign Up</span>

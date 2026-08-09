@@ -3257,5 +3257,552 @@
                 "recommendation_score": 8.506
             }
         }
+    },
+    "iak": {
+        "name": "altaf",
+        "email": "",
+        "password": "$2b$12$yVzx2Z2/zYO5QoobGJWErOeLC4CYq199kl43NxhNJ7ZqE00a7Ygsa",
+        "profile": {
+            "bio": "NovaFlix Movie Enthusiast",
+            "photo_url": "https://www.pngall.com/wp-content/uploads/5/Profile-Avatar-PNG.png"
+        },
+        "wishlist": [],
+        "watched_list": [],
+        "onboarding_completed": false,
+        "preferences": {},
+        "interactions": {
+            "Forrest Gump": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 1.0063
+            },
+            "Whiplash": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9997
+            },
+            "The Dark Knight": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.1088
+            },
+            "The Green Mile": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9945
+            },
+            "Guardians of the Galaxy": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9884
+            },
+            "Big Hero 6": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9876
+            },
+            "The Godfather: Part II": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9821
+            },
+            "The Shawshank Redemption": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9802
+            },
+            "The Godfather": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9753
+            },
+            "Spirited Away": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9715
+            },
+            "Star Wars": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9695
+            },
+            "The Lord of the Rings: The Fellowship of the Ring": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9688
+            },
+            "Harry Potter and the Chamber of Secrets": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9633
+            },
+            "Gone Girl": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7796
+            },
+            "The Fifth Element": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9602
+            },
+            "Deadpool": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9598
+            },
+            "The Hobbit: The Battle of the Five Armies": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9514
+            },
+            "Ice Age": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9511
+            },
+            "How to Train Your Dragon 2": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9496
+            },
+            "Ant-Man": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9493
+            },
+            "Fight Club": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9488
+            },
+            "One Flew Over the Cuckoo's Nest": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9466
+            },
+            "Despicable Me 2": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9465
+            },
+            "Inside Out": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9452
+            },
+            "X-Men: Days of Future Past": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9422
+            },
+            "Interstellar": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9404
+            },
+            "The Dark Knight Rises": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 1786263675.7971659,
+                "recommendation_score": 3.0375,
+                "user_id": "iak",
+                "movie_id": "The Dark Knight Rises"
+            },
+            "Harry Potter and the Philosopher's Stone": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9391
+            },
+            "Harry Potter and the Goblet of Fire": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9372
+            },
+            "Men in Black": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.937
+            },
+            "Rise of the Planet of the Apes": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7175
+            },
+            "The Lord of the Rings: The Two Towers": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9341
+            },
+            "Iron Man": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9339
+            },
+            "Mission: Impossible - Rogue Nation": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9321
+            },
+            "Pulp Fiction": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9307
+            },
+            "The Matrix": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 0.9294
+            },
+            "Jana Gana Mana": {
+                "user_id": "iak",
+                "movie_id": "Jana Gana Mana",
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 1786263608.5885966,
+                "recommendation_score": 0.0
+            },
+            "The Bourne Identity": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9491
+            },
+            "Shutter Island": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.3133
+            },
+            "The Prestige": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2735
+            },
+            "Oldboy": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8476
+            },
+            "The Sixth Sense": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2557
+            },
+            "Run All Night": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2439
+            },
+            "The Curious Case of Benjamin Button": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2455
+            },
+            "The Game": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2086
+            },
+            "Zodiac": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8109
+            },
+            "The Bourne Ultimatum": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7473
+            },
+            "The Girl with the Dragon Tattoo": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8395
+            },
+            "Transcendence": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.1574
+            },
+            "Ghost": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.1488
+            },
+            "Sicario": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.2031
+            },
+            "Mulholland Drive": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.1238
+            },
+            "Shooter": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0635
+            },
+            "A Walk Among the Tombstones": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.846
+            },
+            "Mystic River": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7008
+            },
+            "The Devil's Advocate": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.1044
+            },
+            "L.A. Confidential": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7373
+            },
+            "Thanmathra": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0832
+            },
+            "The Bone Collector": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7067
+            },
+            "Keerthi Chakra": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0783
+            },
+            "Irreversible": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.6985
+            },
+            "The Others": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0683
+            },
+            "Lucky Number Slevin": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7755
+            },
+            "Spadikam": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0584
+            },
+            "The Jacket": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0452
+            },
+            "Disturbia": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0401
+            },
+            "Premam": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0323
+            },
+            "The Firm": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0322
+            },
+            "The Negotiator": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0323
+            },
+            "Trance": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.6787
+            },
+            "Buried": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0298
+            },
+            "Ee.Ma.Yau.": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 3.0222
+            },
+            "Young Sherlock Holmes": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9726
+            },
+            "The Net": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9722
+            },
+            "Basic": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9319
+            },
+            "xXx: State of the Union": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.929
+            },
+            "The Limey": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9194
+            },
+            "Scarface": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.9075
+            },
+            "Smilla's Sense of Snow": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8965
+            },
+            "10th & Wolf": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8882
+            },
+            "Training Day": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8682
+            },
+            "Harper": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8362
+            },
+            "Drive": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.8011
+            },
+            "Man on Fire": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7926
+            },
+            "Need for Speed": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7567
+            },
+            "3 Days to Kill": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.7114
+            },
+            "Nightcrawler": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.6902
+            },
+            "Hitman": {
+                "watched": false,
+                "wishlist": false,
+                "watch_timestamp": 0.0,
+                "recommendation_score": 2.6831
+            }
+        }
     }
 }

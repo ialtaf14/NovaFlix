@@ -678,6 +678,28 @@ export default function StoriesViewer() {
             </div>
           )}
 
+          {/* Music sticker for non-custom-editor stories that still have overlays */}
+          {activeStory.type !== 'custom_editor' && activeStory.overlays?.map(overlay => {
+            if (overlay.type === 'music') {
+              return (
+                <div
+                  key={overlay.id}
+                  className="story-viewer-overlay-music"
+                  style={{
+                    position: 'absolute',
+                    left: `${(overlay.x / 450) * 100}%`,
+                    top: `${(overlay.y / 800) * 100}%`,
+                    transform: `translate(-50%, -50%) scale(${overlay.scale || 1}) rotate(${overlay.rotation || 0}deg)`,
+                    zIndex: 56,
+                  }}
+                >
+                  <SpotifySticker music={overlay.music} />
+                </div>
+              );
+            }
+            return null;
+          })}
+
           {/* Stickers/Overlays overlay tags (only if not custom editor story) */}
           {activeStory.type !== 'custom_editor' && activeStory.emoji && (
             <div className="story-emoji-overlay">{activeStory.emoji}</div>

@@ -344,5 +344,27 @@
       "other_user": null,
       "metadata": {}
     }
+  ],
+  "iak": [
+    {
+      "id": "9104fc66-2899-4e87-9ee0-a7c9e8194414",
+      "type": "profile_view",
+      "timestamp": 1786263675796,
+      "movie_title": "The Dark Knight Rises",
+      "movie_poster": "https://m.media-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_QL75_UX380_CR0,0,380,562_.jpg",
+      "rating": null,
+      "other_user": null,
+      "metadata": {}
+    },
+    {
+      "id": "1119a417-b23e-45b2-bd98-769554e8359a",
+      "type": "profile_view",
+      "timestamp": 1786263608588,
+      "movie_title": "Jana Gana Mana",
+      "movie_poster": "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+      "rating": null,
+      "other_user": null,
+      "metadata": {}
+    }
   ]
 }

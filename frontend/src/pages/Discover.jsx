@@ -539,6 +539,40 @@ export default function Discover() {
         <RowSection title="🎬 Recently Released" movies={trending.recent} loading={trendingLoading} />
         <RowSection title="🗓️ Monthly Trending" movies={trending.monthly} loading={trendingLoading} />
 
+        {/* ── Show message if all trending rows are empty after loading ── */}
+        {!trendingLoading && !latestLoading && !personalizedLoading &&
+          !trending.daily?.length && !trending.weekly?.length &&
+          !latestMovies?.length && !personalized?.recommended?.length && (
+          <div style={{
+            textAlign: 'center',
+            padding: '4rem 2rem',
+            color: 'var(--muted)',
+          }}>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎬</div>
+            <h3 style={{ color: '#fff', marginBottom: '0.5rem' }}>Movies load nahi ho rahi</h3>
+            <p style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Backend server se connection nahi ho pa raha. Server start karo aur page refresh karo.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              style={{
+                background: '#ff4b2b',
+                color: '#fff',
+                border: 'none',
+                padding: '0.75rem 2rem',
+                borderRadius: '12px',
+                fontWeight: 800,
+                fontSize: '0.95rem',
+                cursor: 'pointer',
+              }}
+            >
+              🔄 Retry
+            </button>
+          </div>
+        )}
+
+
+
         <StoryEditor
           isOpen={showAddStory}
           onClose={closeStoryModal}
