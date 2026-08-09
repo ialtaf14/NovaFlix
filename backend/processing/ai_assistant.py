@@ -6,32 +6,49 @@ import os
 import json
 
 # Mood definitions mapped to genres and plot keywords
+# Genre names must match dataset values exactly (case-insensitive after normalization)
 MOOD_MAPPINGS = {
     "Happy": {
-        "genres": ["Comedy", "Family", "Romance", "Musical", "Animation"],
-        "keywords": ["fun", "laugh", "happy", "humor", "smile", "cheer", "heartwarming", "feel-good"]
+        "genres": ["Comedy", "Family", "Romance", "Musical", "Animation", "Music"],
+        "keywords": ["fun", "laugh", "happy", "humor", "smile", "cheer", "heartwarming", "feel-good", "joy", "comic"]
     },
     "Emotional": {
-        "genres": ["Drama", "Romance", "Biography", "History"],
-        "keywords": ["sad", "tear", "emotional", "cry", "touching", "heartbreaking", "love", "loss", "family"]
+        "genres": ["Drama", "Romance", "Biography", "History", "War"],
+        "keywords": ["sad", "tear", "emotional", "cry", "touching", "heartbreaking", "love", "loss", "family", "grief", "sacrifice"]
     },
     "Mind-Blowing": {
-        "genres": ["Sci-Fi", "Mystery", "Thriller", "Fantasy"],
-        "keywords": ["mind", "space", "dimension", "time", "dream", "twist", "psychological", "conspiracy", "quantum"]
+        "genres": ["Sci-Fi", "ScienceFiction", "Mystery", "Thriller", "Fantasy"],
+        "keywords": ["mind", "space", "dimension", "time", "dream", "twist", "psychological", "conspiracy", "quantum", "illusion", "reality"]
     },
     "Horror": {
         "genres": ["Horror", "Thriller", "Mystery"],
-        "keywords": ["scary", "ghost", "dark", "death", "blood", "killer", "spirit", "fear", "creepy", "nightmare"]
+        "keywords": ["scary", "ghost", "dark", "death", "blood", "killer", "spirit", "fear", "creepy", "nightmare", "demon", "haunted"]
     },
     "Action": {
-        "genres": ["Action", "Adventure", "Thriller", "Sci-Fi"],
-        "keywords": ["fight", "explosion", "chase", "gun", "war", "battle", "superhero", "rescue", "agent", "crime"]
+        "genres": ["Action", "Adventure", "Thriller", "Sci-Fi", "ScienceFiction", "Crime", "War", "Western"],
+        "keywords": ["fight", "explosion", "chase", "gun", "war", "battle", "superhero", "rescue", "agent", "crime", "mission", "combat"]
     },
     "Romantic": {
         "genres": ["Romance", "Drama", "Comedy"],
-        "keywords": ["love", "relationship", "date", "romantic", "boyfriend", "girlfriend", "marriage", "couple"]
+        "keywords": ["love", "relationship", "date", "romantic", "boyfriend", "girlfriend", "marriage", "couple", "affair", "passion"]
     }
 }
+
+# Normalize genre strings to canonical names for matching
+_GENRE_ALIASES = {
+    "sciencefiction": "Sci-Fi",
+    "sci-fi": "Sci-Fi",
+    "sci fi": "Sci-Fi",
+    "tvmovie": "Drama",
+    "biography": "Biography",
+    "musical": "Musical",
+    "music": "Music",
+}
+
+def _normalize_genre(g: str) -> str:
+    """Normalize genre string to canonical form for matching."""
+    key = g.lower().strip()
+    return _GENRE_ALIASES.get(key, g.strip())
 
 def clean_text(text):
     if not text:
@@ -130,27 +147,31 @@ def get_mood_recommendations(username: str, mood: str, limit: int = 20, offset: 
         if not title or title in watched_list or title in seen_titles:
             continue
 
-        # Parse movie genres
+        # Parse movie genres with normalization
         row_genres = row.get("genres", [])
         if isinstance(row_genres, list):
-            row_genres_list = row_genres
+            row_genres_list = [_normalize_genre(g) for g in row_genres]
         else:
-            row_genres_list = [g.strip() for g in str(row_genres).split(",") if g.strip()]
+            row_genres_list = [_normalize_genre(g.strip()) for g in str(row_genres).split(",") if g.strip()]
         row_genres_set = set([g.lower() for g in row_genres_list])
-        
+
         # Calculate a relevance score
-        # 1. Base Mood Fit: Genre match & Plot keyword match
-        common_mood_genres = genres_target.intersection(row_genres_set)
-        
-        # Fetch from in-memory cache ONLY to avoid blocking network calls in a loop!
+        # 1. Base Mood Fit: Genre match (use normalized genres for matching)
+        # genres_target already lower-cased, compare against normalized lower-cased row genres
+        normalized_target = set([g.lower() for g in mood_config["genres"]] +
+                                 [_normalize_genre(g).lower() for g in mood_config["genres"]])
+        common_mood_genres = normalized_target.intersection(row_genres_set)
+
+        # Keyword match: use in-memory details cache first, then fall back to dataset overview/tags
         details = preprocess._details_cache.get(title, {})
-        plot = (details.get("plot") or "").lower()
+        plot = (details.get("plot") or str(row.get("overview", "")) or str(row.get("tags", ""))).lower()
         keyword_matches = sum(2 for kw in keywords_target if kw in plot)
-        
+
         mood_score = len(common_mood_genres) * 5 + keyword_matches
+        # Only skip if absolutely no genre or keyword match at all
         if mood_score == 0:
             continue
-            
+
         score = mood_score
 
         # 2. Prioritize explicit favorite genres from settings
