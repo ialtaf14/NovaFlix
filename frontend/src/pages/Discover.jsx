@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../store/useAuthStore'
 import MovieCard from '../components/MovieCard'
@@ -10,6 +10,111 @@ import api from '../services/api'
 import { useCachedResource } from '../hooks/useCachedResource'
 import { useCachedState } from '../hooks/useCachedState'
 import useDragScroll from '../hooks/useDragScroll'
+
+// ── Cinematic Auto-Sliding Hero Banner ──────────────────────────────────────
+function HeroBanner({ movies, loading, onNavigate }) {
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [animating, setAnimating] = useState(false)
+  const timerRef = useRef(null)
+
+  const goTo = useCallback((idx, total) => {
+    if (animating) return
+    setAnimating(true)
+    setTimeout(() => {
+      setActiveIdx((idx + total) % total)
+      setAnimating(false)
+    }, 400)
+  }, [animating])
+
+  useEffect(() => {
+    if (!movies || movies.length === 0) return
+    timerRef.current = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % movies.length)
+    }, 5000)
+    return () => clearInterval(timerRef.current)
+  }, [movies])
+
+  const resetTimer = (idx) => {
+    clearInterval(timerRef.current)
+    setActiveIdx(idx)
+    timerRef.current = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % movies.length)
+    }, 5000)
+  }
+
+  if (loading) {
+    return (
+      <div className="hero-slider-skeleton">
+        <div className="skeleton" style={{ width: '100%', height: '100%', borderRadius: 0 }} />
+      </div>
+    )
+  }
+  if (!movies || movies.length === 0) return null
+
+  const movie = movies[activeIdx]
+  const total = movies.length
+
+  return (
+    <div className="hero-slider" key={activeIdx}>
+      {/* Background Backdrop */}
+      <div
+        className={`hero-slider-bg ${animating ? 'hero-fade-out' : 'hero-fade-in'}`}
+        style={{ backgroundImage: `url(${movie.poster})` }}
+      />
+      <div className="hero-slider-overlay" />
+
+      {/* Content */}
+      <div className={`hero-slider-content ${animating ? 'hero-fade-out' : 'hero-fade-in'}`}>
+        <div className="hero-slider-left">
+          <span className="hero-badge">★ TOP PICK FOR YOU</span>
+          <h1 className="hero-title">{movie.title}</h1>
+          <div className="hero-meta">
+            {movie.rating && movie.rating !== 'N/A' && <span className="hero-rating">⭐ {movie.rating}</span>}
+            {movie.year && movie.year !== 'N/A' && <span className="hero-year">📅 {movie.year}</span>}
+            {movie.genre && <span className="hero-genre">{movie.genre.split(',')[0].trim()}</span>}
+          </div>
+          <div className="hero-actions">
+            <button className="hero-btn-primary" onClick={() => onNavigate(movie.title)}>
+              ▶ Watch Now
+            </button>
+            <button className="hero-btn-secondary" onClick={() => onNavigate(movie.title)}>
+              ℹ More Info
+            </button>
+          </div>
+        </div>
+        <div className="hero-slider-right">
+          <img
+            src={movie.poster}
+            alt={movie.title}
+            className="hero-poster-card"
+            onClick={() => onNavigate(movie.title)}
+            onError={e => e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'}
+          />
+        </div>
+      </div>
+
+      {/* Prev / Next Arrows */}
+      <button className="hero-arrow hero-arrow-left" onClick={() => { resetTimer((activeIdx - 1 + total) % total) }}>‹</button>
+      <button className="hero-arrow hero-arrow-right" onClick={() => { resetTimer((activeIdx + 1) % total) }}>›</button>
+
+      {/* Dot Indicators */}
+      <div className="hero-dots">
+        {movies.map((_, i) => (
+          <button
+            key={i}
+            className={`hero-dot ${i === activeIdx ? 'active' : ''}`}
+            onClick={() => resetTimer(i)}
+          />
+        ))}
+      </div>
+
+      {/* Progress Bar */}
+      <div className="hero-progress-bar">
+        <div className="hero-progress-fill" key={activeIdx} />
+      </div>
+    </div>
+  )
+}
 
 // Custom movie card specifically for the Mood Recommendation row to meet all 9 item requirements without affecting existing movie cards.
 function MoodMovieCard({ title, poster, rating, year, genre, novaflix_rating }) {
@@ -225,8 +330,11 @@ export default function Discover() {
     }
   }
 
-  // Top recommendation for Hero Banner
-  const heroMovie = personalized?.recommended?.[0] || trending.daily?.[0]
+  // Hero Banner: top 6 personalized picks + trending fallbacks
+  const heroMovies = [
+    ...(personalized?.recommended || []).slice(0, 4),
+    ...(trending.daily || []).slice(0, 4)
+  ].filter((m, i, arr) => arr.findIndex(x => x.title === m.title) === i).slice(0, 6)
 
   const RowSection = ({ title, movies, loading }) => {
     const rowRef = useDragScroll()
@@ -287,6 +395,14 @@ export default function Discover() {
         isOpen={user != null && !user.onboarding_completed && !onboardingDismissed} 
         onClose={() => setOnboardingDismissed(true)} 
       />
+
+      {/* ── CINEMATIC HERO SLIDER (full-width, outside container) ── */}
+      <HeroBanner
+        movies={heroMovies}
+        loading={personalizedLoading && trendingLoading}
+        onNavigate={(title) => navigate(`/movie?title=${encodeURIComponent(title)}`)}
+      />
+
       <div className="container">
 
         {/* STORIES LIST ROW */}
@@ -406,47 +522,6 @@ export default function Discover() {
           )}
         </div>
 
-        {/* Hero Featured Recommendation */}
-        {!personalizedLoading && heroMovie && (
-          <div className="hero-banner glass" style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 200px',
-            gap: '2.5rem',
-            padding: '2.5rem',
-            borderRadius: '24px',
-            marginBottom: '3rem',
-            background: 'linear-gradient(135deg, rgba(255,75,43,0.15) 0%, rgba(10,10,15,0.95) 100%)',
-            border: '1px solid rgba(255,75,43,0.25)',
-            alignItems: 'center',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.6)'
-          }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
-              <span style={{ color: '#ff4b2b', textTransform: 'uppercase', letterSpacing: '2.5px', fontSize: '0.75rem', fontWeight: 800 }}>★ TOP PICK FOR YOU</span>
-              <h1 style={{ fontSize: '2.4rem', fontWeight: 900, margin: 0, lineHeight: 1.1, color: '#fff' }}>{heroMovie.title}</h1>
-              <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', fontSize: '0.85rem' }}>
-                <span style={{ color: '#ffd700', fontWeight: 700 }}>⭐ {heroMovie.rating || 'N/A'}</span>
-                <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
-                <span style={{ color: 'var(--muted)' }}>📅 {heroMovie.year}</span>
-              </div>
-              <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                A highly recommended movie based on your watch patterns, similar wishlist tags, and trending user engagement. Click below to explore trailers and full details.
-              </p>
-              <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
-                <button className="btn btn-primary" onClick={() => navigate(`/movie?title=${encodeURIComponent(heroMovie.title)}`)}>
-                  ▶ Explore Movie
-                </button>
-              </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <img src={heroMovie.poster} alt={heroMovie.title}
-                style={{ width: '100%', maxWidth: '160px', borderRadius: '14px', boxShadow: '0 12px 35px rgba(0,0,0,0.6)', cursor: 'pointer', transition: 'transform 0.3s' }}
-                onClick={() => navigate(`/movie?title=${encodeURIComponent(heroMovie.title)}`)}
-                className="hero-image"
-                onError={e => e.target.src = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'} />
-            </div>
-          </div>
-        )}
-
         {/* ── PERSONALIZED NETFLIX ROWS ── */}
         <RowSection title="👀 Continue Watching" movies={personalized?.continue_watching} loading={personalizedLoading} />
         <RowSection title="🎯 Similar to your interests" movies={personalized?.recommended} loading={personalizedLoading} />
@@ -473,17 +548,207 @@ export default function Discover() {
       </div>
 
       <style>{`
-        .hero-image:hover {
-          transform: scale(1.04);
+        /* ── Hero Slider ── */
+        .hero-slider {
+          position: relative;
+          width: 100%;
+          height: 520px;
+          overflow: hidden;
+          margin-bottom: 0;
+          background: #0a0a0f;
+        }
+        @media (max-width: 768px) {
+          .hero-slider { height: 380px; }
+        }
+        .hero-slider-skeleton {
+          width: 100%;
+          height: 520px;
+          background: #121218;
+        }
+        .hero-slider-bg {
+          position: absolute;
+          inset: 0;
+          background-size: cover;
+          background-position: center top;
+          filter: blur(18px) brightness(0.35);
+          transform: scale(1.08);
+          transition: opacity 0.5s ease;
+        }
+        .hero-slider-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to right, rgba(5,5,10,0.97) 0%, rgba(5,5,10,0.7) 55%, rgba(5,5,10,0.15) 100%),
+                      linear-gradient(to top, rgba(5,5,10,1) 0%, transparent 40%);
+        }
+        .hero-slider-content {
+          position: relative;
+          z-index: 2;
+          height: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+          transition: opacity 0.4s ease;
+        }
+        .hero-slider-left {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          max-width: 550px;
+        }
+        .hero-badge {
+          color: #ff4b2b;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          font-size: 0.72rem;
+          font-weight: 800;
+        }
+        .hero-title {
+          font-size: clamp(1.8rem, 4vw, 3rem);
+          font-weight: 900;
+          margin: 0;
+          line-height: 1.1;
+          color: #fff;
+          text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+        }
+        .hero-meta {
+          display: flex;
+          gap: 0.8rem;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+        .hero-rating { color: #ffd700; font-weight: 700; font-size: 0.9rem; }
+        .hero-year { color: rgba(255,255,255,0.55); font-size: 0.9rem; }
+        .hero-genre {
+          background: rgba(255,255,255,0.1);
+          color: rgba(255,255,255,0.8);
+          padding: 2px 10px;
+          border-radius: 20px;
+          font-size: 0.78rem;
+          font-weight: 600;
+        }
+        .hero-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+        .hero-btn-primary {
+          padding: 0.75rem 2rem;
+          background: #ff4b2b;
+          color: #fff;
+          border: none;
+          border-radius: 12px;
+          font-weight: 800;
+          font-size: 0.95rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          box-shadow: 0 4px 20px rgba(255,75,43,0.4);
+        }
+        .hero-btn-primary:hover { background: #e03e20; transform: scale(1.04); }
+        .hero-btn-secondary {
+          padding: 0.75rem 1.5rem;
+          background: rgba(255,255,255,0.1);
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.2);
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 0.95rem;
+          cursor: pointer;
+          transition: all 0.2s;
+          backdrop-filter: blur(6px);
+        }
+        .hero-btn-secondary:hover { background: rgba(255,255,255,0.18); transform: scale(1.04); }
+        .hero-slider-right {
+          flex-shrink: 0;
+        }
+        .hero-poster-card {
+          width: 180px;
+          aspect-ratio: 2/3;
+          object-fit: cover;
+          border-radius: 18px;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,255,255,0.06);
+          cursor: pointer;
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+        .hero-poster-card:hover {
+          transform: scale(1.05) translateY(-4px);
+          box-shadow: 0 28px 60px rgba(0,0,0,0.9), 0 0 30px rgba(255,75,43,0.2);
         }
         @media (max-width: 600px) {
-          .hero-banner {
-            grid-template-columns: 1fr !important;
-            padding: 1.5rem !important;
-          }
-          .hero-image {
-            max-width: 120px !important;
-          }
+          .hero-slider-right { display: none; }
+          .hero-slider-content { padding: 0 1.2rem; }
+          .hero-title { font-size: 1.6rem; }
+        }
+        /* Arrows */
+        .hero-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 10;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.15);
+          color: #fff;
+          font-size: 2.2rem;
+          line-height: 1;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          backdrop-filter: blur(6px);
+          transition: all 0.2s;
+        }
+        .hero-arrow:hover { background: rgba(255,75,43,0.35); border-color: #ff4b2b; transform: translateY(-50%) scale(1.1); }
+        .hero-arrow-left { left: 1.5rem; }
+        .hero-arrow-right { right: 1.5rem; }
+        /* Dots */
+        .hero-dots {
+          position: absolute;
+          bottom: 3rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 8px;
+          z-index: 10;
+        }
+        .hero-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          border: none;
+          background: rgba(255,255,255,0.3);
+          cursor: pointer;
+          transition: all 0.3s;
+          padding: 0;
+        }
+        .hero-dot.active { background: #ff4b2b; width: 24px; border-radius: 4px; }
+        /* Progress Bar */
+        .hero-progress-bar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: rgba(255,255,255,0.1);
+          z-index: 10;
+        }
+        .hero-progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #ff4b2b, #ff8c69);
+          animation: hero-progress 5s linear forwards;
+          border-radius: 0 2px 2px 0;
+        }
+        @keyframes hero-progress {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+        /* Fade transitions */
+        .hero-fade-in { animation: heroFadeIn 0.5s ease forwards; }
+        .hero-fade-out { opacity: 0; }
+        @keyframes heroFadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         /* ── Mood Pill Glowing Effect ── */
