@@ -123,8 +123,32 @@ export default function MovieDetails() {
 
     let cancelled = false
 
+    const fetchDetails = api.get(`/movies/details?title=${encodeURIComponent(title)}`)
+      .catch(async () => {
+        const cleaned = title.replace(/[:\-]/g, ' ').replace(/\s+/g, ' ').trim()
+        if (cleaned !== title) {
+          return api.get(`/movies/details?title=${encodeURIComponent(cleaned)}`)
+        }
+        throw new Error('Details fetch failed')
+      })
+      .catch(() => ({
+        data: {
+          title: title,
+          poster: 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
+          plot: 'Information is being loaded...',
+          rating: 'N/A',
+          votes: 'N/A',
+          year: 'N/A',
+          runtime: '120 min',
+          genre: 'N/A',
+          director: 'N/A',
+          cast: [],
+          awards: 'N/A'
+        }
+      }))
+
     Promise.all([
-      api.get(`/movies/details?title=${encodeURIComponent(title)}`),
+      fetchDetails,
       api.get(`/users/reviews/${encodeURIComponent(title)}`).catch(() => ({ data: { reviews: [] } })),
       api.get(`/movies/recommend?title=${encodeURIComponent(title)}`).catch(() => ({ data: { recommendations: { by_tags: [] } } })),
       api.get(`/movies/trailer?title=${encodeURIComponent(title)}`).catch(() => ({ data: { video_id: null } })),

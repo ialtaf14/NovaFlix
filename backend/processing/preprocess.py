@@ -223,15 +223,41 @@ def get_all_titles() -> list:
 def _resolve_title(title: str) -> str:
     """Return the canonical (original-case) title for *title*.
 
-    Falls back to the input unchanged so callers never get None.
-    Lookup is case-insensitive and strips leading/trailing whitespace.
+    Handles:
+    1. Exact case-insensitive lookup
+    2. Alphanumeric & punctuation-insensitive lookup (e.g. colons, hyphens, spaces)
+    3. Partial substring match
+    Falls back to original title input.
     """
+    if not title or not str(title).strip():
+        return title
+
     global _title_lookup_cache
-    # Warm up the cache on first use
     if not _title_lookup_cache:
         get_all_titles()
-    key = title.strip().lower()
-    return _title_lookup_cache.get(key, title)
+
+    key = str(title).strip().lower()
+    if key in _title_lookup_cache:
+        return _title_lookup_cache[key]
+
+    clean_q = clean_for_compare(title)
+    if clean_q:
+        all_titles = get_all_titles()
+        # 1. Alphanumeric / punctuation-insensitive match
+        for orig in all_titles:
+            if clean_for_compare(orig) == clean_q:
+                _title_lookup_cache[key] = orig
+                return orig
+
+        # 2. Substring match for longer queries
+        if len(clean_q) >= 4:
+            for orig in all_titles:
+                clean_orig = clean_for_compare(orig)
+                if clean_q in clean_orig or clean_orig in clean_q:
+                    _title_lookup_cache[key] = orig
+                    return orig
+
+    return title
 
 
 def get_all_series_titles() -> list:
@@ -331,6 +357,37 @@ def _tmdb_tv_fetch(title: str) -> dict:
         tv_id = best_item["id"]
         details_url = f"https://api.tmdb.org/3/tv/{tv_id}?api_key={api_key}&language=en-US"
         details = requests.get(details_url, timeout=6).json()
+        return details
+    except Exception:
+        return {}
+
+
+def _tmdb_movie_fetch(title: str) -> dict:
+    """Fetch complete movie details from TMDB public API."""
+    try:
+        api_key = "15d2ea6d0dc1d476efbca3eba2b9bbfb"
+        search_url = (
+            f"https://api.tmdb.org/3/search/movie"
+            f"?api_key={api_key}&query={requests.utils.quote(title)}&language=en-US&page=1"
+        )
+        data = requests.get(search_url, timeout=5).json()
+        results = data.get("results", [])
+        if not results:
+            return {}
+
+        target_clean = clean_for_compare(title)
+        best_item = None
+        for item in results:
+            item_name = item.get("title") or item.get("original_title") or ""
+            if clean_for_compare(item_name) == target_clean:
+                best_item = item
+                break
+        if not best_item:
+            best_item = results[0]
+
+        movie_id = best_item["id"]
+        details_url = f"https://api.tmdb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US&append_to_response=credits"
+        details = requests.get(details_url, timeout=5).json()
         return details
     except Exception:
         return {}
@@ -1039,48 +1096,97 @@ def get_movie_details(title: str) -> dict:
 
     # OMDB fetch
     omdb = {}
-    for key in OMDB_KEYS:
-        try:
-            url = f"http://www.omdbapi.com/?t={requests.utils.quote(title)}&plot=full&apikey={key}"
-            data = requests.get(url, timeout=5).json()
-            if data.get("Response") == "True":
-                omdb = data
-                break
-        except Exception:
-            continue
+    for query_t in [canonical, title]:
+        for key in OMDB_KEYS:
+            try:
+                url = f"http://www.omdbapi.com/?t={requests.utils.quote(query_t)}&plot=full&apikey={key}"
+                data = requests.get(url, timeout=4).json()
+                if data.get("Response") == "True":
+                    omdb = data
+                    break
+            except Exception:
+                continue
+        if omdb:
+            break
 
-    fallback_poster, fallback_rating, fallback_year = fetch_poster(title)
+    # Secondary TMDB fetch fallback if local & OMDB plot missing
+    tmdb_fallback = {}
+    if not omdb and not local.get("overview"):
+        tmdb_fallback = _tmdb_movie_fetch(canonical)
 
-    poster = omdb.get("Poster") or fallback_poster
-    if poster == "N/A" or poster == FALLBACK_POSTER:
+    fallback_poster, fallback_rating, fallback_year = fetch_poster(canonical)
+
+    tmdb_poster = (
+        f"https://image.tmdb.org/t/p/w500{tmdb_fallback.get('poster_path')}"
+        if tmdb_fallback.get("poster_path")
+        else FALLBACK_POSTER
+    )
+    poster = omdb.get("Poster") or (
+        tmdb_poster if tmdb_poster != FALLBACK_POSTER else fallback_poster
+    )
+    if poster in ["N/A", FALLBACK_POSTER]:
         poster = fallback_poster
 
-    rating_val = omdb.get("imdbRating") or str(local.get("vote_average", "N/A"))
-    if rating_val == "N/A" and fallback_rating != "N/A":
+    rating_val = (
+        omdb.get("imdbRating")
+        or str(tmdb_fallback.get("vote_average", ""))
+        or str(local.get("vote_average", "N/A"))
+    )
+    if rating_val in ["N/A", "", "0", "0.0"] and fallback_rating != "N/A":
         rating_val = fallback_rating
 
-    year_val = omdb.get("Year") or str(local.get("release_date", "N/A"))[:4]
-    if (year_val == "N/A" or not year_val) and fallback_year != "N/A":
+    year_val = (
+        omdb.get("Year")
+        or (str(tmdb_fallback.get("release_date", ""))[:4])
+        or (str(local.get("release_date", ""))[:4])
+    )
+    if year_val in ["N/A", ""] and fallback_year != "N/A":
         year_val = fallback_year
 
-    # Prefer canonical title in output; fall back to user-supplied if not resolved
+    tmdb_genres = ", ".join(
+        [
+            g.get("name", "")
+            for g in tmdb_fallback.get("genres", [])
+            if g.get("name")
+        ]
+    )
+    tmdb_cast = [
+        c.get("name")
+        for c in tmdb_fallback.get("credits", {}).get("cast", [])[:15]
+    ]
+
     display_title = canonical if canonical != title else title
     result = {
         "title": display_title,
         "poster": poster,
-        "plot": omdb.get("Plot") or local.get("overview", "No description available."),
+        "plot": omdb.get("Plot")
+        or tmdb_fallback.get("overview")
+        or local.get("overview", "No description available."),
         "rating": rating_val,
-        "votes": omdb.get("imdbVotes", "N/A"),
-        "year": year_val,
-        "runtime": omdb.get("Runtime") or f"{local.get('runtime', 'N/A')} min",
-        "genre": omdb.get("Genre") or (", ".join(genres) if genres else "N/A"),
+        "votes": omdb.get("imdbVotes", str(tmdb_fallback.get("vote_count", "N/A"))),
+        "year": year_val if year_val else "N/A",
+        "runtime": omdb.get("Runtime")
+        or (
+            f"{tmdb_fallback.get('runtime')} min"
+            if tmdb_fallback.get("runtime")
+            else f"{local.get('runtime', 'N/A')} min"
+        ),
+        "genre": omdb.get("Genre")
+        or tmdb_genres
+        or (", ".join(genres) if genres else "N/A"),
         "director": omdb.get("Director")
-        or (director[0] if isinstance(director, list) and director else str(director)),
-        "cast": omdb.get("Actors", "").split(", ") if omdb.get("Actors") else cast_list,
+        or (
+            director[0]
+            if isinstance(director, list) and director
+            else str(director)
+        ),
+        "cast": omdb.get("Actors", "").split(", ")
+        if omdb.get("Actors")
+        else (tmdb_cast or cast_list),
         "awards": omdb.get("Awards", "N/A"),
-        "budget": local.get("budget", 0),
-        "revenue": local.get("revenue", 0),
-        "release_date": local.get("release_date", omdb.get("Released", "N/A")),
+        "budget": local.get("budget", tmdb_fallback.get("budget", 0)),
+        "revenue": local.get("revenue", tmdb_fallback.get("revenue", 0)),
+        "release_date": local.get("release_date", omdb.get("Released", tmdb_fallback.get("release_date", "N/A"))),
         "language": omdb.get("Language", "N/A"),
         "country": omdb.get("Country", "N/A"),
     }
