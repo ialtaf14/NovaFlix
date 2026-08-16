@@ -110,14 +110,18 @@ export default function RecommendSidebar({ isOpen, onClose }) {
     return () => window.removeEventListener('novaflix_open_recommendations', handleOpenWithMovie)
   }, [])
 
-  // Handle recommendation fetch with auto-retry
-  const fetchRecommendations = (title, isRetry = false) => {
+  // Handle recommendation fetch
+  const fetchRecommendations = (title) => {
     setLoading(true)
     setError('')
     setSelectedMovie(title)
     setShowSuggestions(false)
 
-    api.get('/movies/smart-recommend', { params: { title } })
+    // Use a longer timeout for ML recommendation endpoint (TF-IDF + scikit-learn can be slow)
+    api.get('/movies/smart-recommend', { 
+      params: { title },
+      timeout: 60000  // 60 seconds for ML processing
+    })
       .then(res => {
         if (res.data?.categories) {
           setRecommendations(res.data.categories)
@@ -135,12 +139,11 @@ export default function RecommendSidebar({ isOpen, onClose }) {
         const status = err.response?.status
         if (status === 404) {
           setError(`Movie "${title}" not found. Try a different title.`)
-        } else if (!isRetry) {
-          // Auto-retry once after 1s (covers transient backend/session issues)
-          setTimeout(() => fetchRecommendations(title, true), 1000)
+        } else if (err.code === 'ECONNABORTED' || err.message?.includes('timeout')) {
+          setError('Request timed out. The server is busy processing. Please retry.')
         } else {
           const errMsg = err.response?.data?.detail
-            || (status ? `Server error (${status}).` : 'Could not reach server.')
+            || (status ? `Server error (${status}).` : 'Could not reach server. Make sure backend is running.')
           setError(errMsg)
         }
       })
