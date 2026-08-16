@@ -1,0 +1,284 @@
+/* Season Episode Viewer */
+.season-episode-viewer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.sev-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sev-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sev-stats {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+/* Seasons Container */
+.sev-seasons-container {
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1rem;
+}
+
+.sev-seasons-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 75, 43, 0.3) transparent;
+}
+
+.sev-seasons-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.sev-seasons-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 43, 0.3);
+  border-radius: 10px;
+}
+
+.sev-season-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 42px;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sev-season-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.sev-season-btn.active {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  border-color: #ff4b2b;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(255, 75, 43, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+/* Episodes Container */
+.sev-episodes-container {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sev-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 300px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.sev-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 75, 43, 0.2);
+  border-top-color: #ff4b2b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Episodes List */
+.sev-episodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.sev-episodes-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sev-episodes-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sev-episodes-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 75, 43, 0.3);
+  border-radius: 10px;
+}
+
+.sev-episodes-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 75, 43, 0.5);
+}
+
+.sev-episode-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transition: all 0.2s ease;
+}
+
+.sev-episode-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 75, 43, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transform: translateX(4px);
+}
+
+.sev-ep-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(255, 75, 43, 0.2), rgba(255, 65, 108, 0.2));
+  border: 1px solid rgba(255, 75, 43, 0.3);
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #ff4b2b;
+  flex-shrink: 0;
+}
+
+.sev-ep-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.sev-ep-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sev-ep-date {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.sev-ep-description {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* No Episodes State */
+.sev-no-episodes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.sev-no-episodes p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .season-episode-viewer {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .sev-title {
+    font-size: 1.1rem;
+  }
+
+  .sev-stats {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .sev-season-btn {
+    min-width: 45px;
+    height: 38px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .sev-episode-item {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .sev-ep-number {
+    min-width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+
+  .sev-ep-name {
+    font-size: 0.95rem;
+  }
+
+  .sev-episodes-list {
+    max-height: 400px;
+  }
+}

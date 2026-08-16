@@ -1,0 +1,1211 @@
+{
+  "cel_d1d98f34": {
+    "id": "cel_d1d98f34",
+    "name": "Steven Spielberg",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Steven+Spielberg&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_28647c51": {
+    "id": "cel_28647c51",
+    "name": "Christopher Nolan",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Christopher+Nolan&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [
+      "altafkhan122105"
+    ],
+    "subscriber_count": 1
+  },
+  "cel_10f60739": {
+    "id": "cel_10f60739",
+    "name": "Martin Scorsese",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Martin+Scorsese&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8f16c898": {
+    "id": "cel_8f16c898",
+    "name": "Quentin Tarantino",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Quentin+Tarantino&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0c1f0416": {
+    "id": "cel_0c1f0416",
+    "name": "James Cameron",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=James+Cameron&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_db2e10b4": {
+    "id": "cel_db2e10b4",
+    "name": "David Fincher",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=David+Fincher&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e3107edd": {
+    "id": "cel_e3107edd",
+    "name": "Ridley Scott",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Ridley+Scott&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_162d10ca": {
+    "id": "cel_162d10ca",
+    "name": "Denis Villeneuve",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Denis+Villeneuve&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_19ad70b7": {
+    "id": "cel_19ad70b7",
+    "name": "Stanley Kubrick",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Stanley+Kubrick&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e205d7c2": {
+    "id": "cel_e205d7c2",
+    "name": "Alfred Hitchcock",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Alfred+Hitchcock&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_5602db76": {
+    "id": "cel_5602db76",
+    "name": "Francis Ford Coppola",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Francis+Ford+Coppola&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_bd4019aa": {
+    "id": "cel_bd4019aa",
+    "name": "Peter Jackson",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Peter+Jackson&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a35a3a2a": {
+    "id": "cel_a35a3a2a",
+    "name": "Tim Burton",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Tim+Burton&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_b84954cb": {
+    "id": "cel_b84954cb",
+    "name": "Clint Eastwood",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Clint+Eastwood&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_2f9d8ef4": {
+    "id": "cel_2f9d8ef4",
+    "name": "Ron Howard",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Ron+Howard&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_7db49788": {
+    "id": "cel_7db49788",
+    "name": "George Lucas",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=George+Lucas&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_81cad45b": {
+    "id": "cel_81cad45b",
+    "name": "Guillermo del Toro",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Guillermo+del+Toro&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f4dd0906": {
+    "id": "cel_f4dd0906",
+    "name": "Wes Anderson",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Wes+Anderson&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a00b02c5": {
+    "id": "cel_a00b02c5",
+    "name": "Christopher McQuarrie",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Christopher+McQuarrie&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_49329960": {
+    "id": "cel_49329960",
+    "name": "Sam Mendes",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Sam+Mendes&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_42f85e2e": {
+    "id": "cel_42f85e2e",
+    "name": "Damien Chazelle",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Damien+Chazelle&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_617ddaee": {
+    "id": "cel_617ddaee",
+    "name": "Greta Gerwig",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Greta+Gerwig&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_67766587": {
+    "id": "cel_67766587",
+    "name": "Bong Joon-ho",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Bong+Joon-ho&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_fd6f3857": {
+    "id": "cel_fd6f3857",
+    "name": "Sofia Coppola",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Sofia+Coppola&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_1da2bb36": {
+    "id": "cel_1da2bb36",
+    "name": "David Lynch",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=David+Lynch&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e8f2f0bb": {
+    "id": "cel_e8f2f0bb",
+    "name": "Paul Thomas Anderson",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Paul+Thomas+Anderson&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_375e8054": {
+    "id": "cel_375e8054",
+    "name": "Robert Zemeckis",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Robert+Zemeckis&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_00229161": {
+    "id": "cel_00229161",
+    "name": "Guy Ritchie",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Guy+Ritchie&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_700ca3ce": {
+    "id": "cel_700ca3ce",
+    "name": "Zack Snyder",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Zack+Snyder&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [
+      "novaflixteam"
+    ],
+    "subscriber_count": 1
+  },
+  "cel_917b9d05": {
+    "id": "cel_917b9d05",
+    "name": "Michael Mann",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Michael+Mann&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_793049b3": {
+    "id": "cel_793049b3",
+    "name": "Alejandro G. Iñárritu",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Alejandro+G.+Iñárritu&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_96357a4f": {
+    "id": "cel_96357a4f",
+    "name": "Joel Coen",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Joel+Coen&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c717c6f1": {
+    "id": "cel_c717c6f1",
+    "name": "Ethan Coen",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Ethan+Coen&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_adbddce6": {
+    "id": "cel_adbddce6",
+    "name": "Taika Waititi",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Taika+Waititi&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0f2c566f": {
+    "id": "cel_0f2c566f",
+    "name": "Bryan Singer",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Bryan+Singer&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_4d4063bd": {
+    "id": "cel_4d4063bd",
+    "name": "J.J. Abrams",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=J.J.+Abrams&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e7ab29d1": {
+    "id": "cel_e7ab29d1",
+    "name": "Jon Favreau",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Jon+Favreau&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_fc8c8e95": {
+    "id": "cel_fc8c8e95",
+    "name": "Rian Johnson",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Rian+Johnson&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_cb1811bd": {
+    "id": "cel_cb1811bd",
+    "name": "Patty Jenkins",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Patty+Jenkins&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_b324e143": {
+    "id": "cel_b324e143",
+    "name": "Kathryn Bigelow",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Kathryn+Bigelow&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_66e7daeb": {
+    "id": "cel_66e7daeb",
+    "name": "Edward Zwick",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Edward+Zwick&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_cc11022d": {
+    "id": "cel_cc11022d",
+    "name": "Baz Luhrmann",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Baz+Luhrmann&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a6c3a70e": {
+    "id": "cel_a6c3a70e",
+    "name": "Robert Eggers",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Robert+Eggers&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_35388693": {
+    "id": "cel_35388693",
+    "name": "Ari Aster",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Ari+Aster&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f1f4c1ee": {
+    "id": "cel_f1f4c1ee",
+    "name": "Todd Phillips",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Todd+Phillips&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_fa2cb13c": {
+    "id": "cel_fa2cb13c",
+    "name": "Jordan Peele",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Jordan+Peele&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f4b305d7": {
+    "id": "cel_f4b305d7",
+    "name": "M. Night Shyamalan",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=M.+Night+Shyamalan&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c4686f2f": {
+    "id": "cel_c4686f2f",
+    "name": "John Carpenter",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=John+Carpenter&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_49d24a15": {
+    "id": "cel_49d24a15",
+    "name": "James Wan",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=James+Wan&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8f03343d": {
+    "id": "cel_8f03343d",
+    "name": "Luc Besson",
+    "type": "director",
+    "photo": "https://ui-avatars.com/api/?name=Luc+Besson&background=ff4b2b&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e82c7353": {
+    "id": "cel_e82c7353",
+    "name": "Leonardo DiCaprio",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Leonardo+DiCaprio&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_1999adda": {
+    "id": "cel_1999adda",
+    "name": "Tom Cruise",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Tom+Cruise&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [
+      "altafkhan122105"
+    ],
+    "subscriber_count": 1
+  },
+  "cel_62598b6d": {
+    "id": "cel_62598b6d",
+    "name": "Brad Pitt",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Brad+Pitt&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_53ad06b7": {
+    "id": "cel_53ad06b7",
+    "name": "Robert Downey Jr.",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Robert+Downey+Jr.&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e3bb0af2": {
+    "id": "cel_e3bb0af2",
+    "name": "Christian Bale",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Christian+Bale&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f25d7dfa": {
+    "id": "cel_f25d7dfa",
+    "name": "Johnny Depp",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Johnny+Depp&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_4d2e1f8e": {
+    "id": "cel_4d2e1f8e",
+    "name": "Keanu Reeves",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Keanu+Reeves&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_6e3e9b66": {
+    "id": "cel_6e3e9b66",
+    "name": "Ryan Reynolds",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Ryan+Reynolds&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_452d3e64": {
+    "id": "cel_452d3e64",
+    "name": "Ryan Gosling",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Ryan+Gosling&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_eaf2e52b": {
+    "id": "cel_eaf2e52b",
+    "name": "Chris Evans",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Chris+Evans&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_837fe6e8": {
+    "id": "cel_837fe6e8",
+    "name": "Chris Hemsworth",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Chris+Hemsworth&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9510f55e": {
+    "id": "cel_9510f55e",
+    "name": "Chris Pratt",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Chris+Pratt&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a009bc4c": {
+    "id": "cel_a009bc4c",
+    "name": "Tom Hanks",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Tom+Hanks&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_d1cefea0": {
+    "id": "cel_d1cefea0",
+    "name": "Denzel Washington",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Denzel+Washington&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_27252c61": {
+    "id": "cel_27252c61",
+    "name": "Will Smith",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Will+Smith&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8248e58b": {
+    "id": "cel_8248e58b",
+    "name": "Matt Damon",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Matt+Damon&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a3e99488": {
+    "id": "cel_a3e99488",
+    "name": "Ben Affleck",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Ben+Affleck&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_13dc7777": {
+    "id": "cel_13dc7777",
+    "name": "Jake Gyllenhaal",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Jake+Gyllenhaal&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_3e6976aa": {
+    "id": "cel_3e6976aa",
+    "name": "Joaquin Phoenix",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Joaquin+Phoenix&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c64ad36f": {
+    "id": "cel_c64ad36f",
+    "name": "Cillian Murphy",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Cillian+Murphy&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_3edf7aa4": {
+    "id": "cel_3edf7aa4",
+    "name": "Michael B. Jordan",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Michael+B.+Jordan&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_d756b74e": {
+    "id": "cel_d756b74e",
+    "name": "Hugh Jackman",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Hugh+Jackman&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_cbea8e65": {
+    "id": "cel_cbea8e65",
+    "name": "Jason Statham",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Jason+Statham&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_69592785": {
+    "id": "cel_69592785",
+    "name": "Henry Cavill",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Henry+Cavill&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [
+      "novaflixteam",
+      "altafkhan122105"
+    ],
+    "subscriber_count": 2
+  },
+  "cel_9832fe53": {
+    "id": "cel_9832fe53",
+    "name": "Andrew Garfield",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Andrew+Garfield&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9646d50a": {
+    "id": "cel_9646d50a",
+    "name": "Tobey Maguire",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Tobey+Maguire&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_4adc73b5": {
+    "id": "cel_4adc73b5",
+    "name": "Tom Holland",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Tom+Holland&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_268aeb87": {
+    "id": "cel_268aeb87",
+    "name": "Timothée Chalamet",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Timothée+Chalamet&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_5a051494": {
+    "id": "cel_5a051494",
+    "name": "Robert Pattinson",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Robert+Pattinson&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_ddb5e6ba": {
+    "id": "cel_ddb5e6ba",
+    "name": "Daniel Craig",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Daniel+Craig&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_022f195e": {
+    "id": "cel_022f195e",
+    "name": "Mark Ruffalo",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Mark+Ruffalo&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_2c434c55": {
+    "id": "cel_2c434c55",
+    "name": "Jeremy Renner",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Jeremy+Renner&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_2f2b03d6": {
+    "id": "cel_2f2b03d6",
+    "name": "Samuel L. Jackson",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Samuel+L.+Jackson&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0cd52526": {
+    "id": "cel_0cd52526",
+    "name": "Morgan Freeman",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Morgan+Freeman&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_1c990950": {
+    "id": "cel_1c990950",
+    "name": "Al Pacino",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Al+Pacino&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_fcc8e6b8": {
+    "id": "cel_fcc8e6b8",
+    "name": "Robert De Niro",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Robert+De+Niro&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8e440541": {
+    "id": "cel_8e440541",
+    "name": "Russell Crowe",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Russell+Crowe&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_d69a800d": {
+    "id": "cel_d69a800d",
+    "name": "Jude Law",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Jude+Law&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_cdcfd9fd": {
+    "id": "cel_cdcfd9fd",
+    "name": "Oscar Isaac",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Oscar+Isaac&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_47099efc": {
+    "id": "cel_47099efc",
+    "name": "Pedro Pascal",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Pedro+Pascal&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_129c92ed": {
+    "id": "cel_129c92ed",
+    "name": "Colin Farrell",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Colin+Farrell&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_bd46bcd8": {
+    "id": "cel_bd46bcd8",
+    "name": "Brendan Fraser",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Brendan+Fraser&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_27654c82": {
+    "id": "cel_27654c82",
+    "name": "Adrien Brody",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Adrien+Brody&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_5be53504": {
+    "id": "cel_5be53504",
+    "name": "Eddie Murphy",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Eddie+Murphy&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_97ffbf8d": {
+    "id": "cel_97ffbf8d",
+    "name": "Vin Diesel",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Vin+Diesel&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_42c8a7b2": {
+    "id": "cel_42c8a7b2",
+    "name": "Bruce Willis",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Bruce+Willis&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8201f72e": {
+    "id": "cel_8201f72e",
+    "name": "Liam Neeson",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Liam+Neeson&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c8d96c6f": {
+    "id": "cel_c8d96c6f",
+    "name": "Arnold Schwarzenegger",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Arnold+Schwarzenegger&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_bafc9abb": {
+    "id": "cel_bafc9abb",
+    "name": "Sylvester Stallone",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Sylvester+Stallone&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_20a19472": {
+    "id": "cel_20a19472",
+    "name": "Jason Momoa",
+    "type": "actor",
+    "photo": "https://ui-avatars.com/api/?name=Jason+Momoa&background=6366f1&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_b22622f6": {
+    "id": "cel_b22622f6",
+    "name": "Scarlett Johansson",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Scarlett+Johansson&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_4a5898a1": {
+    "id": "cel_4a5898a1",
+    "name": "Margot Robbie",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Margot+Robbie&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f72f92c8": {
+    "id": "cel_f72f92c8",
+    "name": "Jennifer Lawrence",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Jennifer+Lawrence&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_3be714f9": {
+    "id": "cel_3be714f9",
+    "name": "Emma Stone",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Emma+Stone&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c0efd98e": {
+    "id": "cel_c0efd98e",
+    "name": "Emma Watson",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Emma+Watson&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_a5de7e2b": {
+    "id": "cel_a5de7e2b",
+    "name": "Anne Hathaway",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Anne+Hathaway&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_e421ecf7": {
+    "id": "cel_e421ecf7",
+    "name": "Natalie Portman",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Natalie+Portman&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f25fa024": {
+    "id": "cel_f25fa024",
+    "name": "Charlize Theron",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Charlize+Theron&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_593d0fe8": {
+    "id": "cel_593d0fe8",
+    "name": "Gal Gadot",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Gal+Gadot&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0637b8d1": {
+    "id": "cel_0637b8d1",
+    "name": "Zendaya",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Zendaya&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9556af6b": {
+    "id": "cel_9556af6b",
+    "name": "Florence Pugh",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Florence+Pugh&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_869b1dc5": {
+    "id": "cel_869b1dc5",
+    "name": "Anya Taylor-Joy",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Anya+Taylor-Joy&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9a30006d": {
+    "id": "cel_9a30006d",
+    "name": "Jessica Chastain",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Jessica+Chastain&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_62ae81a2": {
+    "id": "cel_62ae81a2",
+    "name": "Amy Adams",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Amy+Adams&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_fcdb4a55": {
+    "id": "cel_fcdb4a55",
+    "name": "Emily Blunt",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Emily+Blunt&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_776132d8": {
+    "id": "cel_776132d8",
+    "name": "Sandra Bullock",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Sandra+Bullock&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_ced5781f": {
+    "id": "cel_ced5781f",
+    "name": "Julia Roberts",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Julia+Roberts&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_cfd6abdc": {
+    "id": "cel_cfd6abdc",
+    "name": "Nicole Kidman",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Nicole+Kidman&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_4a70176c": {
+    "id": "cel_4a70176c",
+    "name": "Angelina Jolie",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Angelina+Jolie&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_70dc70c4": {
+    "id": "cel_70dc70c4",
+    "name": "Cate Blanchett",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Cate+Blanchett&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_af990d6e": {
+    "id": "cel_af990d6e",
+    "name": "Viola Davis",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Viola+Davis&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_635f4417": {
+    "id": "cel_635f4417",
+    "name": "Meryl Streep",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Meryl+Streep&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_1e9211a0": {
+    "id": "cel_1e9211a0",
+    "name": "Dakota Johnson",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Dakota+Johnson&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_02c7054c": {
+    "id": "cel_02c7054c",
+    "name": "Sydney Sweeney",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Sydney+Sweeney&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_d782674e": {
+    "id": "cel_d782674e",
+    "name": "Millie Bobby Brown",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Millie+Bobby+Brown&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_19b125f9": {
+    "id": "cel_19b125f9",
+    "name": "Jenna Ortega",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Jenna+Ortega&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_683966d9": {
+    "id": "cel_683966d9",
+    "name": "Hailee Steinfeld",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Hailee+Steinfeld&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c35f715e": {
+    "id": "cel_c35f715e",
+    "name": "Lily Collins",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Lily+Collins&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_c7787b38": {
+    "id": "cel_c7787b38",
+    "name": "Ana de Armas",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Ana+de+Armas&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_540fb60a": {
+    "id": "cel_540fb60a",
+    "name": "Elizabeth Olsen",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Elizabeth+Olsen&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_019a5b2e": {
+    "id": "cel_019a5b2e",
+    "name": "Karen Gillan",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Karen+Gillan&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_b4125b99": {
+    "id": "cel_b4125b99",
+    "name": "Brie Larson",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Brie+Larson&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f5cf4a22": {
+    "id": "cel_f5cf4a22",
+    "name": "Rachel McAdams",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Rachel+McAdams&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9dccc835": {
+    "id": "cel_9dccc835",
+    "name": "Rebecca Ferguson",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Rebecca+Ferguson&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_6a3c8f5e": {
+    "id": "cel_6a3c8f5e",
+    "name": "Salma Hayek",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Salma+Hayek&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_190a4554": {
+    "id": "cel_190a4554",
+    "name": "Penélope Cruz",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Penélope+Cruz&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_9cc8ecec": {
+    "id": "cel_9cc8ecec",
+    "name": "Keira Knightley",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Keira+Knightley&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_8c16d8d8": {
+    "id": "cel_8c16d8d8",
+    "name": "Jennifer Aniston",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Jennifer+Aniston&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_613306fe": {
+    "id": "cel_613306fe",
+    "name": "Blake Lively",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Blake+Lively&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0b946ff8": {
+    "id": "cel_0b946ff8",
+    "name": "Kristen Stewart",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Kristen+Stewart&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_245c0b52": {
+    "id": "cel_245c0b52",
+    "name": "Kristen Bell",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Kristen+Bell&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_45d04b38": {
+    "id": "cel_45d04b38",
+    "name": "Rachel Weisz",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Rachel+Weisz&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_242185e7": {
+    "id": "cel_242185e7",
+    "name": "Michelle Yeoh",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Michelle+Yeoh&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_f0056848": {
+    "id": "cel_f0056848",
+    "name": "Eva Green",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Eva+Green&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_2151c7d3": {
+    "id": "cel_2151c7d3",
+    "name": "Lupita Nyong'o",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Lupita+Nyong'o&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_51ffb84f": {
+    "id": "cel_51ffb84f",
+    "name": "Rosamund Pike",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Rosamund+Pike&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_af99612f": {
+    "id": "cel_af99612f",
+    "name": "Aubrey Plaza",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Aubrey+Plaza&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_1e44fecb": {
+    "id": "cel_1e44fecb",
+    "name": "Amanda Seyfried",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Amanda+Seyfried&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_0e37b988": {
+    "id": "cel_0e37b988",
+    "name": "Dakota Fanning",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Dakota+Fanning&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  },
+  "cel_79b37700": {
+    "id": "cel_79b37700",
+    "name": "Elle Fanning",
+    "type": "actress",
+    "photo": "https://ui-avatars.com/api/?name=Elle+Fanning&background=e91e8c&color=fff&size=256&bold=true&font-size=0.4",
+    "subscribers": [],
+    "subscriber_count": 0
+  }
+}

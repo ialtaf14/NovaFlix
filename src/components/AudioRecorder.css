@@ -1,0 +1,91 @@
+.audio-recorder-container {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 10px 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.audio-waveform-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 40px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.waveform-bar {
+  width: 4px;
+  background-color: #8b5cf6;
+  border-radius: 4px;
+  transition: height 0.1s ease;
+}
+
+.audio-recorder-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recorder-time {
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.recorder-cancel-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.recorder-cancel-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #ef4444;
+}
+
+.recorder-send-btn {
+  background: #8b5cf6;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.recorder-send-btn:hover {
+  transform: scale(1.1);
+}
+
+.slide-to-cancel-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 5px;
+}
+
+.pulse {
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
