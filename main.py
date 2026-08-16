@@ -5,6 +5,7 @@ Run: uvicorn main:app --reload --port 8000
 """
 
 import os
+import threading
 
 import socketio
 from core.config import get_settings
