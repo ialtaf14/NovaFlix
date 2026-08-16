@@ -116,6 +116,13 @@ export default function RecommendSidebar({ isOpen, onClose }) {
     setError('')
     setSelectedMovie(title)
     setShowSuggestions(false)
+    setRecommendations({
+      by_cast: [],
+      by_director: [],
+      by_genre: [],
+      by_rating: [],
+      by_story: []
+    })
 
     // No timeout for ML recommendation endpoint — engine is pre-warmed on server start
     api.get('/movies/smart-recommend', { 
