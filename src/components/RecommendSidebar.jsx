@@ -117,10 +117,10 @@ export default function RecommendSidebar({ isOpen, onClose }) {
     setSelectedMovie(title)
     setShowSuggestions(false)
 
-    // Use a longer timeout for ML recommendation endpoint (TF-IDF + scikit-learn can be slow)
+    // No timeout for ML recommendation endpoint — engine is pre-warmed on server start
     api.get('/movies/smart-recommend', { 
       params: { title },
-      timeout: 60000  // 60 seconds for ML processing
+      timeout: 0  // no timeout — backend pre-warms engine on startup
     })
       .then(res => {
         if (res.data?.categories) {

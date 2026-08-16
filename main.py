@@ -114,14 +114,44 @@ def _start_keep_alive():
         print(f"[KeepAlive] Thread error: {e}")
 
 
+def _prewarm_engines():
+    """Pre-warm all smart recommendation engines at startup so first request is instant."""
+    import time
+    # Small delay to let uvicorn fully bind and data files download
+    time.sleep(5)
+    try:
+        print("[Prewarm] Starting recommendation engine pre-warm...")
+        from routers.movies import _get_movie_smart_engine
+        _get_movie_smart_engine()
+        print("[Prewarm] ✅ Movie recommendation engine ready.")
+    except Exception as e:
+        print(f"[Prewarm] Movie engine error: {e}")
+    try:
+        from routers.series import _get_series_smart_engine
+        _get_series_smart_engine()
+        print("[Prewarm] ✅ Series recommendation engine ready.")
+    except Exception as e:
+        print(f"[Prewarm] Series engine error (non-critical): {e}")
+    try:
+        from routers.anime import _get_anime_smart_engine
+        _get_anime_smart_engine()
+        print("[Prewarm] ✅ Anime recommendation engine ready.")
+    except Exception as e:
+        print(f"[Prewarm] Anime engine error (non-critical): {e}")
+    print("[Prewarm] 🚀 All engines pre-warmed. Recommendations will be instant!")
+
+
 @app.on_event("startup")
 def startup_event():
-    """Download missing data files, start 24/7 keep-alive, and clean up old sessions on startup."""
+    """Download missing data files, start 24/7 keep-alive, pre-warm ML engines, and clean up old sessions on startup."""
     # Download pkl files in background thread so uvicorn binds to PORT instantly
     threading.Thread(target=download_data_files, daemon=True).start()
 
     # Start Render 24/7 keep-alive thread to prevent free tier sleep (sleeps after 15m idle)
     threading.Thread(target=_start_keep_alive, daemon=True).start()
+
+    # Pre-warm all ML recommendation engines so first user request is instant
+    threading.Thread(target=_prewarm_engines, daemon=True).start()
 
     deleted_count = session_manager.cleanup_old_sessions(
         max_age_seconds=7776000
