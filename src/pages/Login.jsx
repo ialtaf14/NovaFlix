@@ -12,6 +12,18 @@ export default function Login() {
   const { setAuth } = useAuthStore()
   const from = location.state?.from?.pathname || '/discover'
 
+  const extractErrorMessage = (err, fallback) => {
+    const detail = err.response?.data?.detail
+    if (typeof detail === 'string') return detail
+    if (Array.isArray(detail) && detail.length > 0) {
+      return detail.map(d => d.msg || d.message || JSON.stringify(d)).join('. ')
+    }
+    if (detail && typeof detail === 'object') {
+      return detail.msg || detail.message || JSON.stringify(detail)
+    }
+    return err.message || fallback
+  }
+
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const token = params.get('token')
@@ -34,7 +46,14 @@ export default function Login() {
       }
       fetchUserAndLogin()
     } else if (error) {
-      setLoginError(decodeURIComponent(error))
+      const errCode = decodeURIComponent(error)
+      if (errCode === 'google_auth_failed' || errCode === 'access_denied') {
+        setLoginError('Google Sign-In was cancelled or unavailable. Please sign in manually with your username.')
+      } else if (errCode === 'email_required') {
+        setLoginError('Email permission was not provided by Google account.')
+      } else {
+        setLoginError(errCode)
+      }
     }
   }, [location.search, navigate, from, setAuth])
 
@@ -64,7 +83,7 @@ export default function Login() {
       setAuth(data.user, data.token)
       navigate(from, { replace: true })
     } catch (err) {
-      setLoginError(err.response?.data?.detail || 'Login failed')
+      setLoginError(extractErrorMessage(err, 'Login failed. Please check your credentials.'))
     } finally { setLoginLoading(false) }
   }
 
@@ -74,14 +93,14 @@ export default function Login() {
     setSignupLoading(true); setSignupError('')
     try {
       const { data } = await api.post('/auth/signup', {
-        username: signupForm.username,
-        name: signupForm.name,
+        username: signupForm.username.trim(),
+        name: signupForm.name.trim(),
         password: signupForm.password,
       })
       setAuth(data.user, data.token)
       navigate('/discover')
     } catch (err) {
-      setSignupError(err.response?.data?.detail || 'Signup failed')
+      setSignupError(extractErrorMessage(err, 'Signup failed. Please try a different username.'))
     } finally { setSignupLoading(false) }
   }
 

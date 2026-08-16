@@ -54,7 +54,10 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5174",
         "http://127.0.0.1:5175",
         "https://novaflix.bice.vercel.app",
+        "https://novaflix-team.vercel.app",
+        "https://novaflix.vercel.app",
         "https://novaflix-backend.onrender.com",
+        "*"
     ]
 
     @field_validator("ALLOWED_ORIGINS", mode="before")

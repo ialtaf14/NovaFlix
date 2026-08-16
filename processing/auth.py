@@ -163,10 +163,6 @@ def validate_username(username):
     return True, ""
 
 def validate_password_strength(password):
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters long."
-    if not any(c.isalpha() for c in password):
-        return False, "Password must contain at least one letter."
-    if not any(c.isdigit() for c in password):
-        return False, "Password must contain at least one number."
+    if not password or len(password) < 6:
+        return False, "Password must be at least 6 characters long."
     return True, ""
