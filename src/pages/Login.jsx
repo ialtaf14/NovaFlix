@@ -106,8 +106,10 @@ export default function Login() {
 
   // ── Centralized OAuth Redirects ──────────────────────────────────────────
   const loginWithGoogle = () => {
-    const redirectTo = encodeURIComponent(window.location.origin + window.location.pathname)
-    window.location.href = `/api/auth/google/login?redirect_to=${redirectTo}`
+    const origin = window.location.origin
+    const redirectTo = encodeURIComponent(`${origin}/login`)
+    const baseBackend = 'https://novaflix-backend.onrender.com'
+    window.location.href = `${baseBackend}/api/auth/google/login?redirect_to=${redirectTo}`
   }
 
 

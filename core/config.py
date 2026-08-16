@@ -57,7 +57,6 @@ class Settings(BaseSettings):
         "https://novaflix-team.vercel.app",
         "https://novaflix.vercel.app",
         "https://novaflix-backend.onrender.com",
-        "*"
     ]
 
     @field_validator("ALLOWED_ORIGINS", mode="before")
