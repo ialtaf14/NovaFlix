@@ -271,7 +271,10 @@ export default function RecommendSidebar({ isOpen, onClose }) {
                   setShowSuggestions(true)
                   setError('')
                 }}
-                onFocus={() => setShowSuggestions(true)}
+                onFocus={(e) => {
+                  e.target.select()  // auto-select all text so user can type immediately
+                  setShowSuggestions(true)
+                }}
                 onKeyDown={handleKeyDown}
               />
               {searchQuery && (
@@ -400,6 +403,42 @@ export default function RecommendSidebar({ isOpen, onClose }) {
                   </div>
                 )
               })}
+
+              {/* Search Another Movie Button */}
+              <div style={{ padding: '1rem 0 0.5rem', textAlign: 'center' }}>
+                <button
+                  onClick={() => {
+                    setSearchQuery('')
+                    setSuggestions([])
+                    setShowSuggestions(false)
+                    setError('')
+                    setSelectedMovie('')
+                    setRecommendations({ by_cast: [], by_director: [], by_genre: [], by_rating: [] })
+                    setTimeout(() => inputRef.current?.focus(), 100)
+                    // scroll sidebar body back to top
+                    sidebarRef.current?.querySelector('.recommend-sidebar-body')?.scrollTo({ top: 0, behavior: 'smooth' })
+                  }}
+                  style={{
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    color: '#fff',
+                    padding: '10px 24px',
+                    borderRadius: '12px',
+                    fontSize: '0.88rem',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    letterSpacing: '0.01em'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+                >
+                  🔍 Search Another Movie
+                </button>
+              </div>
             </>
           ) : (
             <div className="recommend-empty-state">
