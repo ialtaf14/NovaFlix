@@ -103,14 +103,24 @@ def download_data_files():
         print(f"[Data] Download thread error: {outer_e}")
 
 
-# ── Startup event: Clean up old sessions ──────────────────────────────────────
-import threading
+# ── Render 24/7 Keep-Alive Self-Ping ──────────────────────────────────────────
+def _start_keep_alive():
+    """Background thread function that runs keep_alive loop."""
+    try:
+        import keep_alive
+        keep_alive.run_loop()
+    except Exception as e:
+        print(f"[KeepAlive] Thread error: {e}")
+
 
 @app.on_event("startup")
 def startup_event():
-    """Download missing data files in background and clean up old sessions on startup."""
+    """Download missing data files, start 24/7 keep-alive, and clean up old sessions on startup."""
     # Download pkl files in background thread so uvicorn binds to PORT instantly
     threading.Thread(target=download_data_files, daemon=True).start()
+
+    # Start Render 24/7 keep-alive thread to prevent free tier sleep (sleeps after 15m idle)
+    threading.Thread(target=_start_keep_alive, daemon=True).start()
 
     deleted_count = session_manager.cleanup_old_sessions(
         max_age_seconds=7776000
