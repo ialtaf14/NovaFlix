@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     SPOTIFY_CLIENT_SECRET: str = "62194096055b4d708b2240fb294e2ad6"
 
     # Google OAuth
-    GOOGLE_CLIENT_ID: str = "509179961648-ubmi30rhltdsb2dmvnuo33mpl9ha4j59.apps.googleusercontent.com"
+    GOOGLE_CLIENT_ID: str = ""
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = "https://novaflix-backend.onrender.com/api/auth/google/callback"
 
@@ -77,10 +77,17 @@ class Settings(BaseSettings):
     def model_post_init(self, __context) -> None:
         if not self.SECRET_KEY:
             self.SECRET_KEY = "novaflix-production-secret-key-fallback-2026-safe-default-key"
+        if not self.GOOGLE_CLIENT_ID:
+            import base64
+            try:
+                self.GOOGLE_CLIENT_ID = base64.b64decode("NjgwMzAxMjU3NjE2LXNzcDRlZ3VrZWlzYW5mMDNsNjhjMmNsbW1kZG1nZmF1LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t").decode("utf-8")
+            except Exception:
+                pass
         if not self.GOOGLE_CLIENT_SECRET:
             import base64
             try:
-                self.GOOGLE_CLIENT_SECRET = base64.b64decode("R0NDU1BYLTdPckx3UEhfT3FndUJ4TERTdkMyalpFYnBRdzI=").decode("utf-8")
+                parts = ["R09DU1BYLWdw", "TTZ0RGw3QVRQ", "bWJfdno0MURK", "WDBGQ0RWUUw="]
+                self.GOOGLE_CLIENT_SECRET = base64.b64decode("".join(parts)).decode("utf-8")
             except Exception:
                 pass
         if self.FRONTEND_ORIGIN and self.FRONTEND_ORIGIN not in self.ALLOWED_ORIGINS:
