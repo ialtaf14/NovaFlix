@@ -9,11 +9,15 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+        timeout: 120000,         // 2 minutes — covers ML cold-start
+        proxyTimeout: 120000,    // 2 minutes proxy-side timeout
       },
       '/ws': {
         target: 'http://localhost:8000',
         ws: true,
         changeOrigin: true,
+        timeout: 120000,
+        proxyTimeout: 120000,
       },
     },
   },

@@ -332,24 +332,28 @@ def get_collection(
 
 
 _movie_smart_engine = None
+_movie_engine_lock = __import__('threading').Lock()
+_movie_rec_cache: dict = {}   # title -> raw_res; avoid re-running ML for same movie
 
 def _get_movie_smart_engine():
-    """Build engine once with vote_average merged in from movies2_df."""
+    """Build engine once (thread-safe double-checked locking)."""
     global _movie_smart_engine
-    if _movie_smart_engine is None:
-        import pandas as pd
-        from processing.smart_recommendation_engine import SmartMovieRecommendationEngine
-        movies_df = preprocess.load_movies_df()
-        movies2_df = preprocess.load_movies2_df()
-        # Merge rating column so engine can score by rating
-        if not movies2_df.empty and "vote_average" in movies2_df.columns:
-            movies_df = pd.merge(
-                movies_df,
-                movies2_df[["title", "vote_average"]],
-                on="title",
-                how="left",
-            )
-        _movie_smart_engine = SmartMovieRecommendationEngine(movies_df)
+    if _movie_smart_engine is not None:
+        return _movie_smart_engine
+    with _movie_engine_lock:
+        if _movie_smart_engine is None:
+            import pandas as pd
+            from processing.smart_recommendation_engine import SmartMovieRecommendationEngine
+            movies_df = preprocess.load_movies_df()
+            movies2_df = preprocess.load_movies2_df()
+            if not movies2_df.empty and "vote_average" in movies2_df.columns:
+                movies_df = pd.merge(
+                    movies_df,
+                    movies2_df[["title", "vote_average"]],
+                    on="title",
+                    how="left",
+                )
+            _movie_smart_engine = SmartMovieRecommendationEngine(movies_df)
     return _movie_smart_engine
 
 
@@ -378,8 +382,16 @@ def smart_recommend(
     watched_set = set(udata.get("watched_list", []))
     wishlist_set = set(udata.get("wishlist", []))
 
-    engine = _get_movie_smart_engine()
-    raw_res = engine.recommend(title, top_n=15)
+    # Use cached ML result if available (avoids re-running TF-IDF for same movie)
+    if title in _movie_rec_cache:
+        raw_res = _movie_rec_cache[title]
+    else:
+        engine = _get_movie_smart_engine()
+        try:
+            raw_res = engine.recommend(title, top_n=15)
+            _movie_rec_cache[title] = raw_res   # cache for future requests
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Recommendation engine error: {e}")
 
     def _process_list(items):
         """Filter watched movies and attach wishlist flag, preserving score order."""
