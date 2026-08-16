@@ -1,0 +1,30 @@
+# Tell Vercel to ignore all Python/backend files
+# Vercel is frontend-only; backend runs on Render
+
+# Python
+requirements.txt
+runtime.txt
+*.py
+__pycache__/
+.python-version
+.venv/
+venv/
+
+# Backend folders
+routers/
+processing/
+core/
+Files/
+uploads/
+
+# Data files
+*.pkl
+*.db
+*.json
+!package.json
+!package-lock.json
+
+# Other
+render.yaml
+start.bat
+Dockerfile
