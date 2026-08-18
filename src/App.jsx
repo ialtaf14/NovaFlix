@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import { useEffect, useState } from 'react'
 import { useAuthStore } from './store/useAuthStore'
 import api from './services/api'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
@@ -228,6 +229,7 @@ export default function App() {
           </ProtectedRoute>
         } />
       </Routes>
+      <SpeedInsights />
     </BrowserRouter>
   )
 }
